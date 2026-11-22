@@ -1,8 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Bot, Brain, Cloud, Code2, ExternalLink, GraduationCap, MapPin, Calendar, Building2 } from 'lucide-react';
+import {
+  Bot,
+  Brain,
+  Cloud,
+  Code2,
+  ExternalLink,
+  GraduationCap,
+  MapPin,
+  Calendar,
+  Building2,
+  User,
+} from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
-import { MonogramLogo } from './MonogramLogo';
 
 const INTEREST_ICONS = {
   brain: Brain,
@@ -33,46 +43,62 @@ export function AboutSection() {
         </h2>
       </div>
 
+      {/* Top Row: Dedicated Portrait Showcase + Bio & Interests */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        {/* Left Column: Bio & Career Vision */}
+        {/* Dedicated Portrait Card */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-7 flex flex-col gap-6"
+          className="lg:col-span-4 flex"
         >
-          {/* Bio Card */}
-          <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-5">
-            <div className="flex items-center gap-4">
+          <div className="w-full max-w-sm mx-auto lg:max-w-none rounded-2xl bg-[#181b23] border border-white/[0.08] overflow-hidden shadow-xl flex flex-col">
+            <div className="relative aspect-[4/5] w-full bg-[#0b0e15] overflow-hidden flex-1">
               {showAvatarImg ? (
                 <img
                   src={PROFILE.avatarUrl}
                   alt="Portrait of Anant Jain"
                   referrerPolicy="no-referrer"
                   onError={() => setAvatarError(true)}
-                  className="w-20 h-20 rounded-2xl object-cover object-[center_18%] border border-[#947dff]/45 shadow-[0_0_20px_rgba(148,125,255,0.18)] shrink-0"
+                  className="w-full h-full object-cover object-top"
                 />
               ) : (
-                <div className="w-16 h-16 rounded-2xl bg-[#1d2027] border border-white/10 flex items-center justify-center shrink-0">
-                  <MonogramLogo className="w-11 h-11" />
+                <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-2">
+                  <User className="w-12 h-12 text-[#cabeff]" aria-hidden="true" />
+                  <p className="font-mono text-xs text-[#938ea1]">Anant Jain</p>
                 </div>
               )}
-
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-lg font-semibold text-[#e0e2ed]">{PROFILE.name}</h3>
-                  <span className="font-mono text-xs text-[#cabeff]">· Year 1</span>
-                </div>
-                <p className="font-mono text-xs text-[#a2e7ff] mt-0.5">
-                  {PROFILE.shortUniversity} · CSE-AIML
-                </p>
-                <p className="text-xs text-[#938ea1] mt-1">
-                  Hometown: {PROFILE.hometown}
-                </p>
-              </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#181b23] via-[#181b23]/40 to-transparent"
+              />
             </div>
 
+            <div className="p-5 border-t border-white/[0.06] space-y-1">
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-lg font-semibold text-[#e0e2ed]">{PROFILE.name}</h3>
+                <span className="font-mono text-xs text-[#cabeff]">Year 1</span>
+              </div>
+              <p className="font-mono text-xs text-[#a2e7ff]">
+                {PROFILE.shortUniversity} · CSE-AIML
+              </p>
+              <p className="text-xs text-[#938ea1]">Hometown: {PROFILE.hometown}</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Bio & Core Interests */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-8 flex flex-col gap-6"
+        >
+          {/* Bio Card */}
+          <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4">
+            <h3 className="text-base font-semibold text-[#e0e2ed]">Who I Am</h3>
             <div className="space-y-3 text-sm sm:text-[15px] leading-relaxed text-[#c9c4d8]">
               {PROFILE.aboutParagraphs.map((para, idx) => (
                 <p key={idx} className={idx === 0 ? 'text-[#e0e2ed]' : 'text-[#c9c4d8]'}>
@@ -84,7 +110,7 @@ export function AboutSection() {
 
           {/* Core Interests & Career Direction */}
           <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4 flex-1">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-base font-semibold text-[#e0e2ed]">
                 Core Interests &amp; Career Focus
               </h3>
@@ -117,26 +143,28 @@ export function AboutSection() {
             </div>
           </div>
         </motion.div>
+      </div>
 
-        {/* Right Column: Education Roadmap & Campus Location */}
+      {/* Bottom Row: Education Roadmap & Campus Location */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        {/* Education Card */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 flex flex-col gap-6"
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4 flex flex-col justify-between"
         >
-          {/* Education Card */}
-          <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <GraduationCap className="w-5 h-5 text-[#cabeff]" aria-hidden="true" />
-                <h3 className="text-base font-semibold text-[#e0e2ed]">Education Roadmap</h3>
-              </div>
-              <span className="font-mono text-xs text-[#a2e7ff]">Active Enrollment</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-[#cabeff]" aria-hidden="true" />
+              <h3 className="text-base font-semibold text-[#e0e2ed]">Education Roadmap</h3>
             </div>
+            <span className="font-mono text-xs text-[#a2e7ff]">Active Enrollment</span>
+          </div>
 
-            <div className="rounded-xl bg-[#1d2027] border border-white/[0.05] p-4 space-y-3">
+          <div className="rounded-xl bg-[#1d2027] border border-white/[0.05] p-4 space-y-3 flex-1 flex flex-col justify-between">
+            <div className="space-y-3">
               <div>
                 <h4 className="text-base font-semibold text-[#e0e2ed]">{PROFILE.degree}</h4>
                 <p className="font-mono text-xs text-[#a2e7ff] mt-1">
@@ -154,93 +182,98 @@ export function AboutSection() {
                   <span className="font-mono">{PROFILE.enrollmentPeriod}</span>
                 </div>
               </div>
+            </div>
 
-              <div className="pt-3 border-t border-white/[0.06]">
-                <p className="font-mono text-[11px] uppercase tracking-wider text-[#938ea1] mb-2">
-                  Key Coursework &amp; Focus
-                </p>
-                <p className="font-mono text-xs text-[#c9c4d8] leading-relaxed">
-                  {PROFILE.coursework.join(' · ')}
+            <div className="pt-3 border-t border-white/[0.06]">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[#938ea1] mb-2">
+                Key Coursework &amp; Focus
+              </p>
+              <p className="font-mono text-xs text-[#c9c4d8] leading-relaxed">
+                {PROFILE.coursework.join(' · ')}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Campus Location Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4 flex flex-col justify-between"
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-[#cabeff]" aria-hidden="true" />
+              <h3 className="text-base font-semibold text-[#e0e2ed]">Campus &amp; Location</h3>
+            </div>
+            <span className="font-mono text-[11px] text-[#938ea1]">LAT 27.5706° N</span>
+          </div>
+
+          <div className="relative h-44 rounded-xl overflow-hidden bg-[#0b0e15] border border-white/[0.06] flex flex-col justify-end p-4">
+            <svg
+              viewBox="0 0 400 180"
+              className="absolute inset-0 w-full h-full opacity-55"
+              aria-hidden="true"
+            >
+              <defs>
+                <pattern id="coord-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 24 0 L 0 0 0 24"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.06)"
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="400" height="180" fill="url(#coord-grid)" />
+              <path
+                d="M 0 110 Q 110 75 200 95 T 400 60"
+                fill="none"
+                stroke="#947dff"
+                strokeOpacity="0.4"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M 60 0 Q 130 90 220 92 T 340 180"
+                fill="none"
+                stroke="#00d2fd"
+                strokeOpacity="0.35"
+                strokeWidth="1.5"
+              />
+              <circle cx="205" cy="92" r="22" fill="#00d2fd" fillOpacity="0.08" />
+              <circle cx="205" cy="92" r="6" fill="#00d2fd" />
+              <circle cx="205" cy="92" r="11" stroke="#cabeff" strokeOpacity="0.6" fill="none" />
+            </svg>
+
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-[#0b0e15] via-[#0b0e15]/50 to-transparent"
+            />
+
+            <div className="relative z-10 flex items-end justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium text-[#e0e2ed]">GLA University Campus</p>
+                <p className="font-mono text-xs text-[#c9c4d8]">
+                  Mathura, Uttar Pradesh · {PROFILE.campusCoords}
                 </p>
               </div>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=GLA+University+Mathura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#272a32]/90 hover:bg-[#32353d] border border-white/10 text-xs font-mono text-[#a2e7ff] transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff]"
+              >
+                <span>Map</span>
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
             </div>
           </div>
 
-          {/* Campus Location Card (Custom SVG Coordinate Visual) */}
-          <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-6 space-y-4 flex-1 flex flex-col justify-between">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#cabeff]" aria-hidden="true" />
-                <h3 className="text-base font-semibold text-[#e0e2ed]">Campus &amp; Location</h3>
-              </div>
-              <span className="font-mono text-[11px] text-[#938ea1]">LAT 27.5706° N</span>
-            </div>
-
-            <div className="relative h-44 rounded-xl overflow-hidden bg-[#0b0e15] border border-white/[0.06] flex flex-col justify-end p-4">
-              {/* Crisp Topographic Coordinate Grid SVG */}
-              <svg
-                viewBox="0 0 400 180"
-                className="absolute inset-0 w-full h-full opacity-55"
-                aria-hidden="true"
-              >
-                <defs>
-                  <pattern id="coord-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                    <path
-                      d="M 24 0 L 0 0 0 24"
-                      fill="none"
-                      stroke="rgba(255,255,255,0.06)"
-                      strokeWidth="1"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="400" height="180" fill="url(#coord-grid)" />
-                <path
-                  d="M 0 110 Q 110 75 200 95 T 400 60"
-                  fill="none"
-                  stroke="#947dff"
-                  strokeOpacity="0.4"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M 60 0 Q 130 90 220 92 T 340 180"
-                  fill="none"
-                  stroke="#00d2fd"
-                  strokeOpacity="0.35"
-                  strokeWidth="1.5"
-                />
-                <circle cx="205" cy="92" r="22" fill="#00d2fd" fillOpacity="0.08" />
-                <circle cx="205" cy="92" r="6" fill="#00d2fd" />
-                <circle cx="205" cy="92" r="11" stroke="#cabeff" strokeOpacity="0.6" fill="none" />
-              </svg>
-
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[#0b0e15] via-[#0b0e15]/50 to-transparent"
-              />
-
-              <div className="relative z-10 flex items-end justify-between gap-3">
-                <div>
-                  <p className="text-sm font-medium text-[#e0e2ed]">GLA University Campus</p>
-                  <p className="font-mono text-xs text-[#c9c4d8]">
-                    Mathura, Uttar Pradesh · {PROFILE.campusCoords}
-                  </p>
-                </div>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=GLA+University+Mathura"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#272a32]/90 hover:bg-[#32353d] border border-white/10 text-xs font-mono text-[#a2e7ff] transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff]"
-                >
-                  <span>Map</span>
-                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-xs text-[#938ea1] pt-1">
-              <span>Department of Computer Science &amp; AIML</span>
-              <span className="font-mono text-[#cabeff]">B.Tech CSE-AIML</span>
-            </div>
+          <div className="flex items-center justify-between text-xs text-[#938ea1] pt-1">
+            <span>Department of Computer Science &amp; AIML</span>
+            <span className="font-mono text-[#cabeff]">B.Tech CSE-AIML</span>
           </div>
         </motion.div>
       </div>

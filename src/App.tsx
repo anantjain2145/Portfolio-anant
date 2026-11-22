@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { MotionConfig } from 'motion/react';
+import { AnimatePresence, MotionConfig } from 'motion/react';
 import { Navbar, type SectionId } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
@@ -10,10 +10,12 @@ import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { ResumeModal } from './components/ResumeModal';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
+import { IntroOverlay } from './components/IntroOverlay';
 
 const SECTION_IDS: SectionId[] = ['home', 'about', 'skills', 'projects', 'contact'];
 
 export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
   const [activeSection, setActiveSection] = useState<SectionId>('home');
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
 
@@ -53,9 +55,17 @@ export default function App() {
     }
   }, []);
 
+  const handleIntroComplete = useCallback(() => {
+    setShowIntro(false);
+  }, []);
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen flex flex-col bg-[#10131b] text-[#e0e2ed]">
+        <AnimatePresence>
+          {showIntro && <IntroOverlay onComplete={handleIntroComplete} />}
+        </AnimatePresence>
+
         <ScrollProgressBar />
         <a
           href="#main-content"
