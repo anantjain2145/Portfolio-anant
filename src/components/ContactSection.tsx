@@ -94,7 +94,7 @@ export function ContactSection({ onOpenResume }: ContactSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 flex flex-col justify-between gap-6 shadow-[var(--shadow-card)] theme-surface"
+          className="lg:col-span-5 theme-card border border-[var(--border-subtle)] p-6 flex flex-col justify-between gap-6 shadow-[var(--shadow-card)] theme-surface"
         >
           <div className="space-y-4">
             <h3 className="text-base font-semibold text-[var(--text-primary)]">Direct Channels</h3>
@@ -228,7 +228,7 @@ export function ContactSection({ onOpenResume }: ContactSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.38, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-7 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 shadow-[var(--shadow-card)] theme-surface"
+          className="lg:col-span-7 theme-card border border-[var(--border-subtle)] p-6 shadow-[var(--shadow-card)] theme-surface"
         >
           <h3 className="text-base font-semibold text-[var(--text-primary)] mb-1">
             Send a Direct Message

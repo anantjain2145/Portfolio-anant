@@ -13,7 +13,9 @@ export type ThemeId = 'space' | 'professional' | 'forest' | 'ocean';
 export interface ThemeMeta {
   id: ThemeId;
   name: string;
+  emoji: string;
   tagline: string;
+  scrollCompanion: string;
   isLight: boolean;
   previewPrimary: string;
   previewSecondary: string;
@@ -25,7 +27,9 @@ export const THEME_LIST: ThemeMeta[] = [
   {
     id: 'space',
     name: 'Space',
-    tagline: 'Deep cosmos & neural violet',
+    emoji: '🌌',
+    tagline: 'Deep cosmos & violet glow',
+    scrollCompanion: 'Rocket',
     isLight: false,
     previewPrimary: '#050816',
     previewSecondary: '#0B1224',
@@ -35,7 +39,9 @@ export const THEME_LIST: ThemeMeta[] = [
   {
     id: 'professional',
     name: 'Professional',
-    tagline: 'Crisp white & recruiter-ready',
+    emoji: '🤍',
+    tagline: 'Clean white & crisp blue',
+    scrollCompanion: 'Paper Plane',
     isLight: true,
     previewPrimary: '#FFFFFF',
     previewSecondary: '#F5F7FA',
@@ -45,7 +51,9 @@ export const THEME_LIST: ThemeMeta[] = [
   {
     id: 'forest',
     name: 'Forest',
-    tagline: 'Deep canopy & emerald',
+    emoji: '🌳',
+    tagline: 'Living canopy & sunlit greens',
+    scrollCompanion: 'Monkey',
     isLight: false,
     previewPrimary: '#071A12',
     previewSecondary: '#10291D',
@@ -55,7 +63,9 @@ export const THEME_LIST: ThemeMeta[] = [
   {
     id: 'ocean',
     name: 'Ocean',
-    tagline: 'Abyssal blue & cyan',
+    emoji: '🌊',
+    tagline: 'Abyssal blue & cyan waves',
+    scrollCompanion: 'Whale',
     isLight: false,
     previewPrimary: '#061B2A',
     previewSecondary: '#0B2C40',

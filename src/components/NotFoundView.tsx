@@ -1,4 +1,5 @@
-import { ArrowLeft, Terminal } from 'lucide-react';
+import { ArrowLeft, Terminal, Trees, Waves } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface NotFoundViewProps {
   pathname: string;
@@ -6,20 +7,35 @@ interface NotFoundViewProps {
 }
 
 export function NotFoundView({ pathname, onReturnHome }: NotFoundViewProps) {
+  const { theme } = useTheme();
+
+  const heading =
+    theme === 'forest'
+      ? 'Trail Lost in the Canopy'
+      : theme === 'ocean'
+      ? 'Drifted Beyond the Reef'
+      : theme === 'professional'
+      ? 'Page Not Found'
+      : 'Signal Lost in Orbit';
+
   return (
-    <main className="min-h-screen flex items-center justify-center px-5 py-16 bg-[var(--bg-primary)] text-[var(--text-primary)]">
-      <div className="w-full max-w-lg rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] p-8 text-center space-y-5 shadow-[var(--shadow-card)]">
+    <main className="min-h-screen flex items-center justify-center px-5 py-16 bg-[var(--bg-primary)] text-[var(--text-primary)] theme-surface">
+      <div className="w-full max-w-lg theme-card border border-[var(--border-strong)] p-8 text-center space-y-5 shadow-[var(--shadow-card)] theme-surface">
         <div className="w-14 h-14 rounded-2xl bg-[var(--accent-soft)] border border-[var(--border-strong)] flex items-center justify-center mx-auto text-[var(--accent)]">
-          <Terminal className="w-7 h-7" aria-hidden="true" />
+          {theme === 'forest' ? (
+            <Trees className="w-7 h-7" aria-hidden="true" />
+          ) : theme === 'ocean' ? (
+            <Waves className="w-7 h-7" aria-hidden="true" />
+          ) : (
+            <Terminal className="w-7 h-7" aria-hidden="true" />
+          )}
         </div>
 
         <div className="space-y-2">
           <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-secondary)]">
             404 · Route Not Found
           </p>
-          <h1 className="text-3xl font-semibold text-[var(--text-primary)]">
-            Signal Lost in Orbit
-          </h1>
+          <h1 className="text-3xl font-semibold text-[var(--text-primary)]">{heading}</h1>
           <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
             The path <code className="font-mono text-[var(--accent)]">{pathname}</code> does not
             exist on Anant Jain&apos;s portfolio.

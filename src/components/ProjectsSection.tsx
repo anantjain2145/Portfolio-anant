@@ -93,7 +93,7 @@ export function ProjectsSection() {
                 delay: index * 0.05,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] overflow-hidden flex flex-col justify-between transition-all duration-200 shadow-[var(--shadow-card)] theme-surface"
+              className="group theme-card border border-[var(--border-subtle)] hover:border-[var(--border-strong)] overflow-hidden flex flex-col justify-between transition-all duration-200 shadow-[var(--shadow-card)] theme-surface"
             >
               <div>
                 {/* Visual Preview Banner */}

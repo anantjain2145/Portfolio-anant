@@ -43,7 +43,7 @@ export function NowSection() {
               delay: idx * 0.05,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="rounded-2xl bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
+            className="theme-card border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
           >
             <div className="space-y-2.5">
               <p className="font-mono text-xs text-[var(--accent)]">{item.area}</p>

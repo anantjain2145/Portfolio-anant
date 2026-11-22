@@ -77,8 +77,8 @@ export function CommandPalette({
     const themeActions: PaletteAction[] = THEME_LIST.map((t) => ({
       id: `theme-${t.id}`,
       group: 'Themes',
-      label: `Switch Theme: ${t.name}`,
-      hint: theme === t.id ? 'Active' : t.tagline,
+      label: `Switch Theme: ${t.emoji} ${t.name}`,
+      hint: theme === t.id ? 'Active' : `${t.scrollCompanion}`,
       run: () => {
         setTheme(t.id);
         onClose();

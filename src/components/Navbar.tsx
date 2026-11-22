@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, ChevronDown, FileText, Menu, Palette, X } from 'lucide-react';
+import { Check, ChevronDown, FileText, Menu, X } from 'lucide-react';
 import { THEME_LIST, useTheme } from '../context/ThemeContext';
 import { MonogramLogo } from './MonogramLogo';
 
@@ -142,13 +142,15 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
               aria-expanded={themeMenuOpen}
               aria-haspopup="menu"
               aria-label={`Change website theme (current: ${themeMeta.name})`}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-secondary)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-xs font-medium text-[var(--text-primary)] whitespace-nowrap shrink-0 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-secondary)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-xs font-medium text-[var(--text-primary)] whitespace-nowrap shrink-0 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] theme-surface"
             >
-              <Palette className="w-3.5 h-3.5 text-[var(--accent)]" aria-hidden="true" />
+              <span aria-hidden="true" className="text-sm leading-none">
+                {themeMeta.emoji}
+              </span>
               <span className="hidden sm:inline">{themeMeta.name}</span>
               <span
                 aria-hidden="true"
-                className="w-2.5 h-2.5 rounded-full border border-white/25"
+                className="w-2.5 h-2.5 rounded-full border border-[var(--border-strong)]"
                 style={{ backgroundColor: themeMeta.previewAccent }}
               />
               <ChevronDown
@@ -163,12 +165,15 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
               <div
                 role="menu"
                 aria-label="Select website theme"
-                className="absolute right-0 mt-2 w-64 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-strong)] shadow-[var(--shadow-card)] p-2 z-50 backdrop-blur-xl"
+                className="absolute right-0 mt-2 w-72 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-strong)] shadow-[var(--shadow-card)] p-2 z-50 backdrop-blur-xl theme-surface"
               >
-                <p className="px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
-                  Appearance Theme
-                </p>
-                <div className="space-y-1">
+                <div className="flex items-center justify-between px-2.5 py-1.5">
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
+                    Select Experience
+                  </p>
+                  <span className="font-mono text-[10px] text-[var(--accent)]">4 Worlds</span>
+                </div>
+                <div className="space-y-1.5">
                   {THEME_LIST.map((item) => {
                     const isSelected = theme === item.id;
                     return (
@@ -181,36 +186,41 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
                           setTheme(item.id);
                           setThemeMenuOpen(false);
                         }}
-                        className={`w-full flex items-center justify-between gap-3 px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                        className={`w-full flex items-center justify-between gap-3 px-2.5 py-2.5 rounded-lg text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] border ${
                           isSelected
-                            ? 'bg-[var(--accent-soft)] text-[var(--text-primary)]'
-                            : 'hover:bg-[var(--bg-elevated)] text-[var(--text-secondary)]'
+                            ? 'bg-[var(--accent-soft)] border-[var(--border-strong)] text-[var(--text-primary)]'
+                            : 'border-transparent hover:bg-[var(--bg-elevated)] text-[var(--text-secondary)]'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div
+                          <span
                             aria-hidden="true"
-                            className="flex items-center -space-x-1 shrink-0"
+                            className="w-8 h-8 rounded-lg flex items-center justify-center text-base shrink-0 border"
+                            style={{
+                              backgroundColor: item.previewPrimary,
+                              borderColor: item.previewAccent,
+                            }}
                           >
-                            <span
-                              className="w-4 h-4 rounded-full border border-black/20"
-                              style={{ backgroundColor: item.previewPrimary }}
-                            />
-                            <span
-                              className="w-4 h-4 rounded-full border border-black/20"
-                              style={{ backgroundColor: item.previewAccent }}
-                            />
-                            <span
-                              className="w-4 h-4 rounded-full border border-black/20"
-                              style={{ backgroundColor: item.previewAccentSecondary }}
-                            />
-                          </div>
+                            {item.emoji}
+                          </span>
                           <div className="min-w-0">
-                            <p className="text-xs font-semibold text-[var(--text-primary)] truncate">
-                              {item.name}
-                            </p>
+                            <div className="flex items-center gap-1.5">
+                              <p className="text-xs font-semibold text-[var(--text-primary)] truncate">
+                                {item.name}
+                              </p>
+                              <div aria-hidden="true" className="flex items-center gap-0.5 shrink-0">
+                                <span
+                                  className="w-2 h-2 rounded-full"
+                                  style={{ backgroundColor: item.previewAccent }}
+                                />
+                                <span
+                                  className="w-2 h-2 rounded-full"
+                                  style={{ backgroundColor: item.previewAccentSecondary }}
+                                />
+                              </div>
+                            </div>
                             <p className="text-[11px] text-[var(--text-muted)] truncate">
-                              {item.tagline}
+                              {item.tagline} · {item.scrollCompanion}
                             </p>
                           </div>
                         </div>
@@ -252,7 +262,7 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="md:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-primary)]/95 backdrop-blur-2xl px-5 py-4 space-y-2"
+          className="md:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-primary)]/95 backdrop-blur-2xl px-5 py-4 space-y-3"
         >
           <div className="grid grid-cols-2 gap-1.5">
             {MOBILE_NAV_ITEMS.map((item) => {
@@ -275,6 +285,34 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
                 </a>
               );
             })}
+          </div>
+
+          {/* Mobile Quick Theme Selector */}
+          <div className="pt-2 border-t border-[var(--border-subtle)] space-y-2">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
+              Theme
+            </p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {THEME_LIST.map((item) => {
+                const isSelected = theme === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setTheme(item.id)}
+                    aria-pressed={isSelected}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-[var(--accent-soft)] border-[var(--border-strong)] text-[var(--text-primary)]'
+                        : 'bg-[var(--bg-secondary)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
+                    }`}
+                  >
+                    <span aria-hidden="true">{item.emoji}</span>
+                    <span className="truncate">{item.name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="pt-2 border-t border-[var(--border-subtle)]">

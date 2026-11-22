@@ -1,9 +1,69 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, GitBranch, Trees, Waves } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import { SKILL_CATEGORIES, SKILLS_C_SNIPPET, type SkillItem } from '../data/portfolioData';
 
 function SkillDiagram({ iconKey }: { iconKey: SkillItem['iconKey'] }) {
+  const { theme } = useTheme();
+
+  if (theme === 'forest') {
+    // Living Branch & Leaf Node Diagram for Forest theme
+    const nodeLabels: Record<SkillItem['iconKey'], string[]> = {
+      c: ['Pointers', 'Memory', 'Structs'],
+      python: ['Syntax', 'OOP', 'Scripting'],
+      javascript: ['DOM', 'Async', 'ES6+'],
+      html: ['Semantic', 'Forms', 'ARIA'],
+      css: ['Flexbox', 'Grid', 'Themes'],
+      cloud: ['Azure', 'IaaS', 'Hosting'],
+      ai: ['Search', 'Agents', 'Logic'],
+      ml: ['Data', 'Models', 'Fit'],
+      git: ['Commits', 'Branch', 'GitHub'],
+      vscode: ['Debug', 'Extensions', 'Edit'],
+      cli: ['Shell', 'GCC', 'Build'],
+    };
+    const leaves = nodeLabels[iconKey];
+
+    return (
+      <svg viewBox="0 0 220 58" className="w-full h-14" aria-hidden="true">
+        <path
+          d="M14 44C62 40 120 26 202 18"
+          fill="none"
+          stroke="#92400e"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M72 34C80 22 92 16 106 14"
+          fill="none"
+          stroke="#92400e"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M134 26C144 36 156 42 172 44"
+          fill="none"
+          stroke="#92400e"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        {/* Leaf Buds */}
+        <ellipse cx="44" cy="36" rx="10" ry="6" fill="#22c55e" fillOpacity="0.28" stroke="#22c55e" />
+        <ellipse cx="110" cy="14" rx="12" ry="6.5" fill="#a3e635" fillOpacity="0.28" stroke="#a3e635" />
+        <ellipse cx="176" cy="42" rx="12" ry="6.5" fill="#22c55e" fillOpacity="0.28" stroke="#22c55e" />
+        <text x="44" y="39" textAnchor="middle" fontSize="6.8" fill="#f0fdf4" fontFamily="monospace">
+          {leaves[0]}
+        </text>
+        <text x="110" y="16.5" textAnchor="middle" fontSize="6.8" fill="#f0fdf4" fontFamily="monospace">
+          {leaves[1]}
+        </text>
+        <text x="176" y="44.5" textAnchor="middle" fontSize="6.8" fill="#f0fdf4" fontFamily="monospace">
+          {leaves[2]}
+        </text>
+      </svg>
+    );
+  }
+
   switch (iconKey) {
     case 'c':
       return (
@@ -340,6 +400,7 @@ function SkillDiagram({ iconKey }: { iconKey: SkillItem['iconKey'] }) {
 }
 
 export function SkillsSection() {
+  const { theme } = useTheme();
   const [copiedC, setCopiedC] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
@@ -369,7 +430,11 @@ export function SkillsSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div className="space-y-2">
           <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-secondary)]">
-            Technical Stack · GLA University
+            {theme === 'forest'
+              ? 'Skill Canopy · Branching Knowledge'
+              : theme === 'ocean'
+              ? 'Ocean Current Stack · GLA University'
+              : 'Technical Stack · GLA University'}
           </p>
           <h2
             id="skills-heading"
@@ -413,12 +478,37 @@ export function SkillsSection() {
         </div>
       </div>
 
+      {/* Forest Skill Tree Overview Banner */}
+      {theme === 'forest' && (
+        <div className="mb-8 theme-card border border-[var(--border-strong)] p-5 flex flex-col sm:flex-row items-center gap-4 shadow-[var(--shadow-card)] theme-surface">
+          <div className="w-12 h-12 rounded-xl bg-[var(--accent-soft)] flex items-center justify-center text-[var(--accent)] shrink-0">
+            <Trees className="w-6 h-6" aria-hidden="true" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-[var(--text-primary)]">
+              Skill Branches Growing from One Trunk
+            </p>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              Each technical domain branches from core C &amp; Python logic into Web Development,
+              Cloud Architecture, AI/ML modeling, and everyday Developer Tools.
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-10">
-        {visibleCategories.map((category) => (
+        {visibleCategories.map((category, catIdx) => (
           <div key={category.id} className="space-y-4">
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
-              {category.title}
-            </h3>
+            <div className="flex items-center gap-2">
+              {theme === 'forest' ? (
+                <GitBranch className="w-3.5 h-3.5 text-[var(--accent)]" aria-hidden="true" />
+              ) : theme === 'ocean' ? (
+                <Waves className="w-3.5 h-3.5 text-[var(--accent)]" aria-hidden="true" />
+              ) : null}
+              <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                {theme === 'forest' ? `Branch 0${catIdx + 1} · ${category.title}` : category.title}
+              </h3>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {category.skills.map((skill, index) => (
@@ -432,7 +522,7 @@ export function SkillsSection() {
                     delay: index * 0.04,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="rounded-2xl bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
+                  className="theme-card border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
                 >
                   <div className="space-y-3">
                     <div className="flex items-baseline justify-between gap-2">

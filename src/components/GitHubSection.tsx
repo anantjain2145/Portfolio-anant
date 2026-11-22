@@ -178,7 +178,7 @@ export function GitHubSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 space-y-5 shadow-[var(--shadow-card)] theme-surface"
+            className="lg:col-span-4 theme-card border border-[var(--border-subtle)] p-6 space-y-5 shadow-[var(--shadow-card)] theme-surface"
           >
             <div className="flex items-center gap-3.5">
               {data.profile.avatarUrl ? (
@@ -300,7 +300,7 @@ export function GitHubSection() {
                   delay: idx * 0.04,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="group rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                className="group theme-card border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">

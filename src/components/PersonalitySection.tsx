@@ -1,8 +1,22 @@
 import { motion } from 'motion/react';
-import { Award, Compass, GraduationCap, Lightbulb, Trophy, Users } from 'lucide-react';
+import {
+  Anchor,
+  Award,
+  Compass,
+  Droplets,
+  GraduationCap,
+  Leaf,
+  Lightbulb,
+  Sprout,
+  Trees,
+  Trophy,
+  Users,
+  Waves,
+} from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import { PERSONALITY_HIGHLIGHTS, type PersonalityItem } from '../data/portfolioData';
 
-const PERSONALITY_ICONS = {
+const DEFAULT_ICONS = {
   badminton: Trophy,
   leadership: Users,
   workshop: Award,
@@ -10,7 +24,31 @@ const PERSONALITY_ICONS = {
   academic: GraduationCap,
 };
 
+const FOREST_ICONS = {
+  badminton: Leaf,
+  leadership: Trees,
+  workshop: Sprout,
+  curiosity: Leaf,
+  academic: Sprout,
+};
+
+const OCEAN_ICONS = {
+  badminton: Waves,
+  leadership: Anchor,
+  workshop: Droplets,
+  curiosity: Compass,
+  academic: Waves,
+};
+
 export function PersonalitySection() {
+  const { theme } = useTheme();
+  const iconSet =
+    theme === 'forest'
+      ? FOREST_ICONS
+      : theme === 'ocean'
+      ? OCEAN_ICONS
+      : DEFAULT_ICONS;
+
   return (
     <section
       id="personality"
@@ -20,7 +58,11 @@ export function PersonalitySection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div className="space-y-2">
           <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
-            Beyond Code · Mindset &amp; Interests
+            {theme === 'forest'
+              ? 'Milestone Leaves & Fruits · Mindset'
+              : theme === 'ocean'
+              ? 'Beyond Code · Tides & Interests'
+              : 'Beyond Code · Mindset & Interests'}
           </p>
           <h2
             id="personality-heading"
@@ -35,14 +77,18 @@ export function PersonalitySection() {
         </div>
 
         <div className="inline-flex items-center gap-2 font-mono text-xs text-[var(--text-muted)] whitespace-nowrap shrink-0">
-          <Compass className="w-4 h-4 text-[var(--accent-secondary)]" aria-hidden="true" />
+          {theme === 'forest' ? (
+            <Leaf className="w-4 h-4 text-[var(--accent-secondary)]" aria-hidden="true" />
+          ) : (
+            <Compass className="w-4 h-4 text-[var(--accent-secondary)]" aria-hidden="true" />
+          )}
           <span>Holistic Student Profile</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {PERSONALITY_HIGHLIGHTS.map((item: PersonalityItem, idx: number) => {
-          const Icon = PERSONALITY_ICONS[item.iconKey];
+          const Icon = iconSet[item.iconKey];
           return (
             <motion.article
               key={item.id}
@@ -54,11 +100,17 @@ export function PersonalitySection() {
                 delay: idx * 0.04,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="rounded-2xl bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
+              className="theme-card border border-[var(--border-subtle)] hover:border-[var(--border-strong)] p-5 sm:p-6 flex flex-col justify-between gap-4 shadow-[var(--shadow-card)] transition-colors theme-surface"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--accent-soft)] flex items-center justify-center text-[var(--accent)] shrink-0">
+                  <div
+                    className={`w-10 h-10 flex items-center justify-center shrink-0 ${
+                      theme === 'forest'
+                        ? 'rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md bg-[var(--accent-soft)] text-[var(--accent-secondary)]'
+                        : 'rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]'
+                    }`}
+                  >
                     <Icon className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <span className="font-mono text-[11px] text-[var(--text-muted)]">

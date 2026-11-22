@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { Terminal as TerminalIcon } from 'lucide-react';
+import { THEME_LIST, useTheme, type ThemeId } from '../context/ThemeContext';
 import {
   LEARNING_JOURNEY,
   PROFILE,
@@ -49,7 +50,8 @@ function buildCommandOutput(rawCmd: string): TerminalLine[] {
         { id: baseId + 7, kind: 'output', text: '  journey    Display 6-stage learning journey' },
         { id: baseId + 8, kind: 'output', text: '  contact    Display verified contact & GitHub links' },
         { id: baseId + 9, kind: 'output', text: '  clear      Clear the terminal' },
-        { id: baseId + 10, kind: 'system', text: "  Tip: Try 'secret' or press Ctrl+K anywhere." },
+        { id: baseId + 10, kind: 'output', text: '  theme <id> Switch theme (space, professional, forest, ocean)' },
+        { id: baseId + 11, kind: 'system', text: "  Tip: Try 'secret' or press Ctrl+K anywhere." },
       ];
 
     case 'about':
@@ -139,6 +141,7 @@ function buildCommandOutput(rawCmd: string): TerminalLine[] {
 }
 
 export function DeveloperTerminalSection() {
+  const { theme, themeMeta, setTheme } = useTheme();
   const [bannerLines, setBannerLines] = useState<TerminalLine[]>(INITIAL_BANNER);
   const [entries, setEntries] = useState<TerminalEntry[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -200,6 +203,49 @@ export function DeveloperTerminalSection() {
       setEntries([]);
       setTypingText(null);
       setTypingEntryId(null);
+      return;
+    }
+
+    if (cmd === 'theme' || cmd.startsWith('theme ')) {
+      const target = cmd.replace(/^theme\s*/, '').trim() as ThemeId;
+      const validIds: ThemeId[] = ['space', 'professional', 'forest', 'ocean'];
+      const baseId = Date.now();
+      let lines: TerminalLine[];
+      if (!target) {
+        lines = [
+          {
+            id: baseId + 1,
+            kind: 'accent',
+            text: `Active theme: ${themeMeta.emoji} ${themeMeta.name} (${theme})`,
+          },
+          {
+            id: baseId + 2,
+            kind: 'system',
+            text: `Available: ${THEME_LIST.map((t) => t.id).join(', ')}. Usage: theme forest`,
+          },
+        ];
+      } else if (validIds.includes(target)) {
+        setTheme(target);
+        const nextMeta = THEME_LIST.find((t) => t.id === target);
+        lines = [
+          {
+            id: baseId + 1,
+            kind: 'accent',
+            text: `Switched global theme to ${nextMeta?.emoji ?? ''} ${nextMeta?.name ?? target}.`,
+          },
+        ];
+      } else {
+        lines = [
+          {
+            id: baseId + 1,
+            kind: 'error',
+            text: `Unknown theme '${target}'. Choose one of: space, professional, forest, ocean.`,
+          },
+        ];
+      }
+      const newId = Date.now() + Math.floor(Math.random() * 1000);
+      setEntries((prev) => [...prev, { id: newId, command: trimmed, lines }]);
+      setTypingEntryId(newId);
       return;
     }
 
@@ -272,6 +318,9 @@ export function DeveloperTerminalSection() {
             <TerminalIcon className="w-4 h-4 text-[var(--accent)]" aria-hidden="true" />
             <span className="font-mono text-xs text-[var(--text-primary)]">
               anant@portfolio:~
+            </span>
+            <span className="font-mono text-[11px] text-[var(--accent)]">
+              [{themeMeta.emoji} {theme}]
             </span>
           </div>
 

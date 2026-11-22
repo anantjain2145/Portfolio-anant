@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import { PROFILE } from '../data/portfolioData';
 import { MonogramLogo } from './MonogramLogo';
 
@@ -38,6 +39,7 @@ const NEURAL_NODES = [
 ];
 
 export function IntroOverlay({ onComplete }: IntroOverlayProps) {
+  const { theme } = useTheme();
   const [pillarIndex, setPillarIndex] = useState(0);
 
   useEffect(() => {
@@ -131,7 +133,7 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
         className="pointer-events-none absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 z-20"
       />
 
-      {/* Neural Constellation Drawing SVG */}
+      {/* Theme-Specific Background Visual on Intro */}
       <motion.div
         aria-hidden="true"
         variants={{
@@ -150,44 +152,145 @@ export function IntroOverlay({ onComplete }: IntroOverlayProps) {
           className="absolute bottom-1/3 right-1/3 translate-x-1/2 translate-y-1/2 w-80 h-80 rounded-full blur-3xl"
         />
 
-        <svg viewBox="0 0 900 440" className="w-full max-w-4xl opacity-45" fill="none">
-          {NEURAL_PATHS.map((d, index) => (
+        {theme === 'forest' && (
+          <svg viewBox="0 0 900 440" className="w-full max-w-4xl opacity-45" fill="none">
+            {/* Botanical Canopy Trunk & Branches */}
             <motion.path
-              key={d}
-              d={d}
-              style={{
-                stroke: index % 2 === 0 ? 'var(--accent)' : 'var(--accent-secondary)',
-              }}
-              strokeOpacity="0.4"
-              strokeWidth="1.25"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{
-                pathLength: { duration: 1.05, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] },
-                opacity: { duration: 0.25, delay: index * 0.08 },
-              }}
+              d="M450 420V250M450 320C390 290 340 245 260 225M450 300C510 270 570 230 650 205M450 250C405 200 370 145 340 100M450 250C495 205 535 155 570 110"
+              style={{ stroke: 'var(--accent)' }}
+              strokeOpacity="0.48"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             />
-          ))}
+            {[
+              [260, 225],
+              [650, 205],
+              [340, 100],
+              [570, 110],
+              [450, 185],
+            ].map(([cx, cy], idx) => (
+              <motion.circle
+                key={`${cx}-${cy}`}
+                cx={cx}
+                cy={cy}
+                r="18"
+                style={{ fill: idx % 2 === 0 ? 'var(--accent)' : 'var(--accent-secondary)' }}
+                fillOpacity="0.24"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.25 + idx * 0.08 }}
+              />
+            ))}
+          </svg>
+        )}
 
-          {NEURAL_NODES.map((node, index) => (
-            <motion.circle
-              key={`${node.cx}-${node.cy}`}
-              cx={node.cx}
-              cy={node.cy}
-              r={node.r}
-              style={{
-                fill: node.primary ? 'var(--accent)' : 'var(--accent-secondary)',
-              }}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: [0, 1.3, 1], opacity: [0, 1, 0.85] }}
-              transition={{
-                duration: 0.45,
-                delay: 0.2 + index * 0.05,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+        {theme === 'ocean' && (
+          <svg viewBox="0 0 900 440" className="w-full max-w-4xl opacity-45" fill="none">
+            {[
+              'M60 280C220 220 380 340 540 275C680 220 770 300 840 265',
+              'M80 185C240 135 400 235 560 180C700 135 780 205 840 175',
+            ].map((d, idx) => (
+              <motion.path
+                key={d}
+                d={d}
+                style={{ stroke: idx === 0 ? 'var(--accent)' : 'var(--accent-secondary)' }}
+                strokeOpacity="0.45"
+                strokeWidth="2"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.15, delay: idx * 0.15 }}
+              />
+            ))}
+            {[160, 290, 620, 740].map((cx, idx) => (
+              <motion.circle
+                key={cx}
+                cx={cx}
+                cy={150 + idx * 35}
+                r={5 + (idx % 3) * 2}
+                style={{ stroke: 'var(--accent)' }}
+                strokeOpacity="0.5"
+                strokeWidth="1.5"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.45, delay: 0.25 + idx * 0.07 }}
+              />
+            ))}
+          </svg>
+        )}
+
+        {theme === 'professional' && (
+          <svg viewBox="0 0 900 440" className="w-full max-w-4xl opacity-40" fill="none">
+            <motion.rect
+              x="140"
+              y="60"
+              width="620"
+              height="320"
+              rx="16"
+              style={{ stroke: 'var(--border-strong)' }}
+              strokeWidth="1"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             />
-          ))}
-        </svg>
+            <motion.line
+              x1="140"
+              y1="220"
+              x2="760"
+              y2="220"
+              style={{ stroke: 'var(--accent)' }}
+              strokeOpacity="0.25"
+              strokeWidth="1"
+              strokeDasharray="6 6"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+            />
+          </svg>
+        )}
+
+        {theme === 'space' && (
+          <svg viewBox="0 0 900 440" className="w-full max-w-4xl opacity-45" fill="none">
+            {NEURAL_PATHS.map((d, index) => (
+              <motion.path
+                key={d}
+                d={d}
+                style={{
+                  stroke: index % 2 === 0 ? 'var(--accent)' : 'var(--accent-secondary)',
+                }}
+                strokeOpacity="0.4"
+                strokeWidth="1.25"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{
+                  pathLength: { duration: 1.05, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.25, delay: index * 0.08 },
+                }}
+              />
+            ))}
+
+            {NEURAL_NODES.map((node, index) => (
+              <motion.circle
+                key={`${node.cx}-${node.cy}`}
+                cx={node.cx}
+                cy={node.cy}
+                r={node.r}
+                style={{
+                  fill: node.primary ? 'var(--accent)' : 'var(--accent-secondary)',
+                }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: [0, 1.3, 1], opacity: [0, 1, 0.85] }}
+                transition={{
+                  duration: 0.45,
+                  delay: 0.2 + index * 0.05,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              />
+            ))}
+          </svg>
+        )}
       </motion.div>
 
       {/* Center Stage Content */}
