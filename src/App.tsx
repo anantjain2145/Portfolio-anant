@@ -9,6 +9,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { ResumeModal } from './components/ResumeModal';
+import { ScrollProgressBar } from './components/ScrollProgressBar';
 
 const SECTION_IDS: SectionId[] = ['home', 'about', 'skills', 'projects', 'contact'];
 
@@ -55,6 +56,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen flex flex-col bg-[#10131b] text-[#e0e2ed]">
+        <ScrollProgressBar />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#947dff] focus:text-[#1c0062] focus:text-sm focus:font-medium"

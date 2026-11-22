@@ -68,7 +68,7 @@ export const PROFILE = {
   /**
    * PLACEHOLDER: Add a cropped headshot at /public/avatar.jpg and set '/avatar.jpg' here.
    */
-  avatarUrl: '',
+  avatarUrl: '/assets/aistudio/be3b3535-f5cc-494a-92ce-6c597952a4dc_26113af6.png',
   heroNeuralImage: '/assets/aistudio/screen_fddd9715.png',
   heroBio:
     "I'm a curious computer science student passionate about programming, artificial intelligence, and building technology that solves real-world problems. Currently exploring AI, software development, and intelligent autonomous systems.",

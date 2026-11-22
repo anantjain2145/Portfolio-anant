@@ -51,7 +51,7 @@ export function AboutSection() {
                   alt="Portrait of Anant Jain"
                   referrerPolicy="no-referrer"
                   onError={() => setAvatarError(true)}
-                  className="w-16 h-16 rounded-full object-cover border border-[#947dff]/40 shrink-0"
+                  className="w-20 h-20 rounded-2xl object-cover object-[center_18%] border border-[#947dff]/45 shadow-[0_0_20px_rgba(148,125,255,0.18)] shrink-0"
                 />
               ) : (
                 <div className="w-16 h-16 rounded-2xl bg-[#1d2027] border border-white/10 flex items-center justify-center shrink-0">
