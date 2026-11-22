@@ -198,8 +198,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         name: 'Cloud Computing',
         stage: 'Foundations',
         description:
-          'Cloud architecture concepts, service models, hosting fundamentals, and virtualization.',
-        topics: ['IaaS / PaaS', 'Virtual Hosts', 'Deployment Basics'],
+          'Cloud architecture concepts, Microsoft Azure fundamentals, service models, and hosting basics.',
+        topics: ['Microsoft Azure', 'IaaS / PaaS', 'Deployment Basics'],
         accent: 'cyan',
         iconKey: 'cloud',
       },
@@ -377,3 +377,100 @@ def plan_goal(goal: str) -> list[AgentStep]:
     visualTheme: 'visualizer',
   },
 ];
+
+export interface JourneyStage {
+  id: string;
+  phase: string;
+  /** Editable placeholder date until exact dates are finalized */
+  timeframe: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  iconKey: 'terminal' | 'code' | 'globe' | 'cloud' | 'brain' | 'rocket';
+  accent: 'violet' | 'cyan';
+}
+
+export const LEARNING_JOURNEY: JourneyStage[] = [
+  {
+    id: 'foundation',
+    phase: 'Stage 01',
+    timeframe: 'Phase 01 · Editable Date',
+    title: 'Foundation',
+    description: 'Started learning programming fundamentals using C.',
+    technologies: ['C Language', 'Control Flow', 'Pointers', 'Problem Logic'],
+    iconKey: 'terminal',
+    accent: 'violet',
+  },
+  {
+    id: 'programming',
+    phase: 'Stage 02',
+    timeframe: 'Phase 02 · Editable Date',
+    title: 'Programming',
+    description: 'Explored Python and developed small programming projects and games.',
+    technologies: ['Python', 'OOP Basics', 'CLI Games', 'Scripting'],
+    iconKey: 'code',
+    accent: 'cyan',
+  },
+  {
+    id: 'web-development',
+    phase: 'Stage 03',
+    timeframe: 'Phase 03 · Editable Date',
+    title: 'Web Development',
+    description: 'Started learning HTML, CSS, and JavaScript.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+    iconKey: 'globe',
+    accent: 'violet',
+  },
+  {
+    id: 'cloud-computing',
+    phase: 'Stage 04',
+    timeframe: 'Phase 04 · Editable Date',
+    title: 'Cloud Computing',
+    description: 'Explored cloud computing and Microsoft Azure fundamentals.',
+    technologies: ['Cloud Computing', 'Microsoft Azure', 'IaaS / PaaS'],
+    iconKey: 'cloud',
+    accent: 'cyan',
+  },
+  {
+    id: 'artificial-intelligence',
+    phase: 'Stage 05',
+    timeframe: 'Current Focus · 2026 – Present',
+    title: 'Artificial Intelligence',
+    description: 'Exploring AI, machine learning, and agentic AI concepts.',
+    technologies: ['Artificial Intelligence', 'Machine Learning', 'Agentic AI'],
+    iconKey: 'brain',
+    accent: 'violet',
+  },
+  {
+    id: 'future-goals',
+    phase: 'Stage 06',
+    timeframe: 'Long-Term Goal',
+    title: 'Future Goals',
+    description:
+      'Aspiring to become an Agentic AI Engineer and build AI systems that solve real-world problems.',
+    technologies: ['Agentic AI Systems', 'Autonomous Workflows', 'Real-World AI'],
+    iconKey: 'rocket',
+    accent: 'cyan',
+  },
+];
+
+export const TERMINAL_SUGGESTIONS = [
+  'help',
+  'about',
+  'skills',
+  'projects',
+  'education',
+  'journey',
+  'contact',
+  'clear',
+] as const;
+
+export const ASSISTANT_SUGGESTED_QUESTIONS = [
+  'Who is Anant Jain?',
+  'What programming languages does he know?',
+  'What projects has he developed?',
+  'What is his educational background?',
+  'What are his career goals?',
+  'How can I contact him?',
+];
+

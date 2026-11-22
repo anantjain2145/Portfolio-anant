@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Times New Roman", Times, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   --color-obsidian-bg: #10131b;
@@ -26,7 +26,7 @@
   html {
     background-color: #10131b;
     color: #e0e2ed;
-    font-family: var(--font-sans);
+    font-family: "Times New Roman", Times, Georgia, serif;
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
   }
@@ -35,6 +35,7 @@
     overflow-x: hidden;
     background-color: #10131b;
     color: #e0e2ed;
+    font-family: "Times New Roman", Times, Georgia, serif;
   }
 
   @media (prefers-reduced-motion: reduce) {

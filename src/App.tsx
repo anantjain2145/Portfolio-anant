@@ -3,8 +3,10 @@ import { AnimatePresence, MotionConfig } from 'motion/react';
 import { Navbar, type SectionId } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
+import { JourneySection } from './components/JourneySection';
 import { SkillsSection } from './components/SkillsSection';
 import { ProjectsSection } from './components/ProjectsSection';
+import { DeveloperTerminalSection } from './components/DeveloperTerminalSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
@@ -12,8 +14,17 @@ import { ResumeModal } from './components/ResumeModal';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { IntroOverlay } from './components/IntroOverlay';
 import { SpaceBackdrop } from './components/SpaceBackdrop';
+import { PortfolioAssistant } from './components/PortfolioAssistant';
 
-const SECTION_IDS: SectionId[] = ['home', 'about', 'skills', 'projects', 'contact'];
+const SECTION_IDS: SectionId[] = [
+  'home',
+  'about',
+  'journey',
+  'skills',
+  'projects',
+  'terminal',
+  'contact',
+];
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -85,21 +96,25 @@ export default function App() {
 
         <main
           id="main-content"
-          className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8"
+          className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pb-12"
         >
           <HeroSection
             onNavigate={handleNavigate}
             onOpenResume={() => setResumeModalOpen(true)}
           />
           <AboutSection />
+          <JourneySection />
           <SkillsSection />
           <ProjectsSection />
+          <DeveloperTerminalSection />
           <ContactSection onOpenResume={() => setResumeModalOpen(true)} />
         </main>
 
         <div className="relative z-10">
           <Footer onNavigate={handleNavigate} />
         </div>
+
+        <PortfolioAssistant />
         <BackToTop />
 
         <ResumeModal

@@ -2,7 +2,14 @@ import { useState } from 'react';
 import { FileText, Menu, X } from 'lucide-react';
 import { MonogramLogo } from './MonogramLogo';
 
-export type SectionId = 'home' | 'about' | 'skills' | 'projects' | 'contact';
+export type SectionId =
+  | 'home'
+  | 'about'
+  | 'journey'
+  | 'skills'
+  | 'projects'
+  | 'terminal'
+  | 'contact';
 
 interface NavbarProps {
   activeSection: SectionId;
@@ -10,13 +17,17 @@ interface NavbarProps {
   onOpenResume: () => void;
 }
 
-const NAV_ITEMS: { id: SectionId; label: string }[] = [
+const DESKTOP_NAV_ITEMS: { id: SectionId; label: string }[] = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'journey', label: 'Journey' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
+  { id: 'terminal', label: 'Terminal' },
   { id: 'contact', label: 'Contact' },
 ];
+
+const MOBILE_NAV_ITEMS: { id: SectionId; label: string }[] = DESKTOP_NAV_ITEMS;
 
 export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,7 +39,7 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#10131b]/85 backdrop-blur-xl border-b border-white/[0.07]">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-8">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
         {/* Zone 1: Brand wordmark */}
         <a
           href="#home"
@@ -45,8 +56,8 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
         </a>
 
         {/* Zone 2: Single-line navigation links */}
-        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
-          {NAV_ITEMS.map((item) => {
+        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-5 lg:gap-6">
+          {DESKTOP_NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
@@ -58,9 +69,7 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
                 }}
                 aria-current={isActive ? 'page' : undefined}
                 className={`relative py-1 text-sm font-medium whitespace-nowrap shrink-0 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff] rounded ${
-                  isActive
-                    ? 'text-[#cabeff]'
-                    : 'text-[#c9c4d8] hover:text-[#e0e2ed]'
+                  isActive ? 'text-[#cabeff]' : 'text-[#c9c4d8] hover:text-[#e0e2ed]'
                 }`}
               >
                 {item.label}
@@ -105,7 +114,7 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
           id="mobile-navigation"
           className="md:hidden border-t border-white/[0.07] bg-[#10131b]/95 backdrop-blur-2xl px-5 py-4 space-y-1.5"
         >
-          {NAV_ITEMS.map((item) => {
+          {MOBILE_NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
