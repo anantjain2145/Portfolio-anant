@@ -14,10 +14,14 @@ interface ChatMessage {
 const WELCOME_MESSAGE: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
-  text: "Hi! I'm Anant Jain's portfolio assistant. Ask me about his education at GLA University, skills, projects, learning journey, career goals, or contact details.",
+  text: "Hi! I'm Anant Jain's portfolio assistant. Ask me about his education at GLA University, skills, projects, GitHub, learning journey, interests (like badminton & workshops), or contact details.",
 };
 
-export function PortfolioAssistant() {
+interface PortfolioAssistantProps {
+  externalOpenSignal?: number;
+}
+
+export function PortfolioAssistant({ externalOpenSignal = 0 }: PortfolioAssistantProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState('');
@@ -26,6 +30,12 @@ export function PortfolioAssistant() {
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (externalOpenSignal > 0) {
+      setIsOpen(true);
+    }
+  }, [externalOpenSignal]);
 
   useEffect(() => {
     let active = true;
@@ -98,7 +108,6 @@ export function PortfolioAssistant() {
 
       const contentType = response.headers.get('content-type') || '';
       if (!contentType.includes('application/json')) {
-        // Static preview without backend route: fall back explicitly to Demo Mode
         setAssistantMode('demo');
         setMessages((prev) => [
           ...prev,
@@ -174,9 +183,9 @@ export function PortfolioAssistant() {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-controls="portfolio-ai-assistant"
-        className="fixed bottom-6 left-5 sm:left-8 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-[#947dff] to-[#613de0] text-[#f5f7fa] text-xs font-medium shadow-[0_8px_28px_-4px_rgba(124,92,252,0.65)] hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a2e7ff]"
+        className="fixed bottom-6 left-5 sm:left-8 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--accent)] text-[var(--accent-contrast)] text-xs font-semibold shadow-[var(--shadow-glow)] hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
       >
-        <Sparkles className="w-4 h-4 text-[#a2e7ff]" aria-hidden="true" />
+        <Sparkles className="w-4 h-4" aria-hidden="true" />
         <span>{isOpen ? 'Close Assistant' : 'Ask AI Assistant'}</span>
       </button>
 
@@ -190,20 +199,20 @@ export function PortfolioAssistant() {
             initial={{ opacity: 0, y: 18, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-20 left-4 right-4 sm:left-8 sm:right-auto sm:w-[400px] h-[520px] max-h-[75vh] z-50 rounded-2xl bg-[#10131b]/95 backdrop-blur-2xl border border-white/15 shadow-2xl flex flex-col overflow-hidden"
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-20 left-4 right-4 sm:left-8 sm:right-auto sm:w-[400px] h-[520px] max-h-[75vh] z-50 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-strong)] shadow-[var(--shadow-card)] flex flex-col overflow-hidden theme-surface"
           >
             {/* Header */}
-            <div className="flex items-center justify-between gap-3 px-4 py-3.5 bg-[#181b23]/95 border-b border-white/[0.08]">
+            <div className="flex items-center justify-between gap-3 px-4 py-3.5 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-lg bg-[#272a32] border border-[#947dff]/40 flex items-center justify-center text-[#cabeff] shrink-0">
+                <div className="w-9 h-9 rounded-lg bg-[var(--accent-soft)] border border-[var(--border-strong)] flex items-center justify-center text-[var(--accent)] shrink-0">
                   <Bot className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-[#e0e2ed] truncate">
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)] truncate">
                     Anant&apos;s Portfolio Assistant
                   </h3>
-                  <p className="font-mono text-[11px] text-[#a2e7ff] truncate">
+                  <p className="font-mono text-[11px] text-[var(--accent)] truncate">
                     {assistantMode === 'gemini'
                       ? 'Gemini AI · Grounded Q&A'
                       : assistantMode === 'demo'
@@ -218,7 +227,7 @@ export function PortfolioAssistant() {
                   type="button"
                   onClick={handleReset}
                   aria-label="Reset conversation"
-                  className="w-8 h-8 rounded-lg hover:bg-[#272a32] flex items-center justify-center text-[#c9c4d8] hover:text-[#e0e2ed] transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-lg hover:bg-[var(--bg-elevated)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
@@ -226,7 +235,7 @@ export function PortfolioAssistant() {
                   type="button"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close AI assistant"
-                  className="w-8 h-8 rounded-lg hover:bg-[#272a32] flex items-center justify-center text-[#c9c4d8] hover:text-[#e0e2ed] transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-lg hover:bg-[var(--bg-elevated)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -245,8 +254,8 @@ export function PortfolioAssistant() {
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
                         isUser
-                          ? 'bg-[#947dff]/25 text-[#cabeff]'
-                          : 'bg-[#272a32] text-[#a2e7ff]'
+                          ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
+                          : 'bg-[var(--accent-soft)] text-[var(--accent)]'
                       }`}
                     >
                       {isUser ? (
@@ -259,10 +268,10 @@ export function PortfolioAssistant() {
                     <div
                       className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-xs sm:text-[13px] leading-relaxed whitespace-pre-line ${
                         isUser
-                          ? 'bg-[#947dff]/25 border border-[#947dff]/35 text-[#e0e2ed]'
+                          ? 'bg-[var(--accent-soft)] border border-[var(--border-strong)] text-[var(--text-primary)]'
                           : msg.isError
-                          ? 'bg-[#93000a]/30 border border-[#ffb4ab]/40 text-[#ffdad6]'
-                          : 'bg-[#181b23] border border-white/[0.08] text-[#c9c4d8]'
+                          ? 'bg-[var(--danger-bg)] border border-[var(--danger-border)] text-[var(--danger-text)]'
+                          : 'bg-[var(--bg-primary)] border border-[var(--border-subtle)] text-[var(--text-secondary)]'
                       }`}
                     >
                       {msg.text}
@@ -271,24 +280,22 @@ export function PortfolioAssistant() {
                 );
               })}
 
-              {/* Typing Indicator */}
               {isLoading && (
                 <div className="flex items-start gap-2.5" aria-live="polite">
-                  <div className="w-7 h-7 rounded-lg bg-[#272a32] text-[#a2e7ff] flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-[var(--accent-soft)] text-[var(--accent)] flex items-center justify-center shrink-0">
                     <Bot className="w-3.5 h-3.5" aria-hidden="true" />
                   </div>
-                  <div className="rounded-xl px-3.5 py-2.5 bg-[#181b23] border border-white/[0.08] flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#cabeff] animate-bounce [animation-delay:-0.2s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#a2e7ff] animate-bounce [animation-delay:-0.1s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#cabeff] animate-bounce" />
+                  <div className="rounded-xl px-3.5 py-2.5 bg-[var(--bg-primary)] border border-[var(--border-subtle)] flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-bounce [animation-delay:-0.2s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-secondary)] animate-bounce [animation-delay:-0.1s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-bounce" />
                   </div>
                 </div>
               )}
 
-              {/* Suggested First-Time Questions */}
               {messages.length <= 2 && !isLoading && (
                 <div className="pt-2 space-y-2">
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-[#938ea1]">
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
                     Suggested Questions
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -297,7 +304,7 @@ export function PortfolioAssistant() {
                         key={question}
                         type="button"
                         onClick={() => void sendMessage(question)}
-                        className="text-left px-2.5 py-1.5 rounded-lg bg-[#181b23] hover:bg-[#272a32] border border-white/[0.08] hover:border-[#00d2fd]/40 text-[11px] text-[#e0e2ed] transition-colors cursor-pointer"
+                        className="text-left px-2.5 py-1.5 rounded-lg bg-[var(--bg-primary)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-[11px] text-[var(--text-primary)] transition-colors cursor-pointer"
                       >
                         {question}
                       </button>
@@ -309,10 +316,10 @@ export function PortfolioAssistant() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Message Composer */}
+            {/* Composer */}
             <form
               onSubmit={handleSubmit}
-              className="p-3 bg-[#181b23]/90 border-t border-white/[0.08] flex items-center gap-2"
+              className="p-3 bg-[var(--bg-primary)] border-t border-[var(--border-subtle)] flex items-center gap-2"
             >
               <label htmlFor="assistant-message-input" className="sr-only">
                 Ask a question about Anant Jain
@@ -325,13 +332,13 @@ export function PortfolioAssistant() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about Anant's skills, projects..."
                 maxLength={800}
-                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-[#0b0e15] border border-white/10 text-xs sm:text-sm text-[#e0e2ed] placeholder:text-[#938ea1]/60 focus:outline-none focus:border-[#947dff]"
+                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs sm:text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)]/60 focus:outline-none focus:border-[var(--accent)]"
               />
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
                 aria-label="Send message"
-                className="w-9 h-9 rounded-lg bg-[#947dff] hover:brightness-110 disabled:opacity-45 text-[#1c0062] flex items-center justify-center shrink-0 transition-all cursor-pointer disabled:cursor-not-allowed"
+                className="w-9 h-9 rounded-lg bg-[var(--accent)] hover:brightness-110 disabled:opacity-45 text-[var(--accent-contrast)] flex items-center justify-center shrink-0 transition-all cursor-pointer disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
               </button>

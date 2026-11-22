@@ -6,14 +6,25 @@ export interface SkillItem {
   stage: string;
   description: string;
   topics: string[];
-  accent: 'violet' | 'cyan';
-  iconKey: 'c' | 'python' | 'javascript' | 'html' | 'css' | 'cloud' | 'ai' | 'ml';
+  accent: 'primary' | 'secondary';
+  iconKey:
+    | 'c'
+    | 'python'
+    | 'javascript'
+    | 'html'
+    | 'css'
+    | 'cloud'
+    | 'ai'
+    | 'ml'
+    | 'git'
+    | 'vscode'
+    | 'cli';
 }
 
 export interface SkillCategory {
   id: string;
   title: string;
-  accentColor: 'violet' | 'cyan';
+  accentColor: 'primary' | 'secondary';
   skills: SkillItem[];
 }
 
@@ -26,23 +37,39 @@ export interface ProjectItem {
   status: string;
   summary: string;
   details: string;
+  challenge: string;
+  solution: string;
   concepts: string[];
   highlights: string[];
   codeFilename: string;
   codeLanguage: string;
   codeSnippet: string;
-  /** Replace with your real GitHub repository URL when published */
   repoUrl: string;
-  /** Replace with a live demo URL if hosted externally */
   liveUrl: string;
   hasInteractiveVisualizer?: boolean;
   visualTheme: 'arcade' | 'memory' | 'agent' | 'visualizer';
 }
 
+export interface NowItem {
+  id: string;
+  area: string;
+  title: string;
+  description: string;
+  focusTags: string[];
+}
+
+export interface PersonalityItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  iconKey: 'badminton' | 'leadership' | 'workshop' | 'curiosity' | 'academic';
+}
+
 export const PROFILE = {
   name: 'Anant Jain',
   initials: 'AJ',
-  roleHeadline: 'Aspiring AI Engineer | CSE-AIML Student',
+  roleHeadline: 'Aspiring Agentic AI Engineer | CSE-AIML Student',
   careerGoal: 'Agentic AI Engineer',
   university: 'GLA University, Mathura, India',
   shortUniversity: 'GLA University',
@@ -54,24 +81,18 @@ export const PROFILE = {
   email: 'anantjain2145@gmail.com',
   linkedinUrl: 'https://www.linkedin.com/in/anant-jain068',
   linkedinHandle: 'linkedin.com/in/anant-jain068',
+  githubUsername: 'anantjain2145',
+  githubUrl: 'https://github.com/anantjain2145',
+  githubHandle: 'github.com/anantjain2145',
   /**
-   * PLACEHOLDER: Add your real GitHub profile URL below (e.g. 'https://github.com/your-username')
-   * Leave as empty string until ready so no broken links appear.
-   */
-  githubUrl: '',
-  githubPlaceholderLabel: 'Add GitHub URL in src/data/portfolioData.ts',
-  /**
-   * PLACEHOLDER: Place your real PDF resume at /public/resume.pdf and set '/resume.pdf' here.
+   * Place your exported PDF resume at /public/resume.pdf and set '/resume.pdf' here.
    * While empty, the portfolio provides a downloadable starter resume built from your verified profile.
    */
   resumeUrl: '',
-  /**
-   * PLACEHOLDER: Add a cropped headshot at /public/avatar.jpg and set '/avatar.jpg' here.
-   */
   avatarUrl: '/assets/aistudio/be3b3535-f5cc-494a-92ce-6c597952a4dc_26113af6.png',
   heroNeuralImage: '/assets/aistudio/screen_fddd9715.png',
   heroBio:
-    "I'm a curious computer science student passionate about programming, artificial intelligence, and building technology that solves real-world problems. Currently exploring AI, software development, and intelligent autonomous systems.",
+    "I'm a first-year Computer Science & Engineering (AI & ML) student at GLA University, Mathura. I enjoy turning curiosity about programming, cloud systems, and artificial intelligence into practical software while working toward becoming an Agentic AI Engineer.",
   aboutParagraphs: [
     "I'm Anant Jain, a first-year B.Tech student at GLA University, Mathura, specializing in Computer Science and Engineering with Artificial Intelligence and Machine Learning (CSE-AIML).",
     'I enjoy exploring new technologies, solving problems, and turning creative ideas into practical projects. My long-term career goal is to become an Agentic AI Engineer and develop intelligent AI systems capable of solving real-world challenges.',
@@ -100,7 +121,7 @@ export const PROFILE = {
     },
     {
       title: 'Cloud & Problem Solving',
-      subtitle: 'Scalable deployment & algorithms',
+      subtitle: 'Microsoft Azure & algorithms',
       icon: 'cloud' as const,
     },
   ],
@@ -126,8 +147,8 @@ int main(void) {
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     id: 'programming',
-    title: 'Programming & Systems',
-    accentColor: 'violet',
+    title: 'Programming Languages',
+    accentColor: 'primary',
     skills: [
       {
         id: 'c-lang',
@@ -136,7 +157,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Systems foundation, memory management fundamentals, and structured algorithmic logic.',
         topics: ['Pointers', 'Memory Allocation', 'Control Flow', 'Data Structures'],
-        accent: 'violet',
+        accent: 'primary',
         iconKey: 'c',
       },
       {
@@ -146,7 +167,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Problem solving, scripting, object-oriented programming, and AI/ML exploration.',
         topics: ['OOP Paradigm', 'Automation', 'NumPy Exploration', 'Pandas I/O'],
-        accent: 'cyan',
+        accent: 'secondary',
         iconKey: 'python',
       },
       {
@@ -156,15 +177,15 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Interactive web scripting, event handling, and client-side DOM manipulation.',
         topics: ['DOM API', 'Fetch & Events', 'Async / Await', 'ES6+ Syntax'],
-        accent: 'violet',
+        accent: 'primary',
         iconKey: 'javascript',
       },
     ],
   },
   {
     id: 'web',
-    title: 'Web Architecture',
-    accentColor: 'cyan',
+    title: 'Web Development',
+    accentColor: 'secondary',
     skills: [
       {
         id: 'html5',
@@ -173,7 +194,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Semantic document structuring, accessible markup, and modern web standards.',
         topics: ['Semantic Elements', 'Accessible Forms', 'SEO Metadata'],
-        accent: 'cyan',
+        accent: 'secondary',
         iconKey: 'html',
       },
       {
@@ -182,27 +203,17 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         stage: 'Styling',
         description:
           'Responsive layouts with Flexbox and Grid, visual hierarchy, and smooth transitions.',
-        topics: ['Flexbox & Grid', 'Responsive Media', 'Backdrop Filters'],
-        accent: 'violet',
+        topics: ['Flexbox & Grid', 'Responsive Media', 'Design Tokens'],
+        accent: 'primary',
         iconKey: 'css',
       },
     ],
   },
   {
-    id: 'cloud-ai',
-    title: 'Cloud, AI & Machine Learning',
-    accentColor: 'cyan',
+    id: 'ai-ml',
+    title: 'AI & Machine Learning',
+    accentColor: 'primary',
     skills: [
-      {
-        id: 'cloud',
-        name: 'Cloud Computing',
-        stage: 'Foundations',
-        description:
-          'Cloud architecture concepts, Microsoft Azure fundamentals, service models, and hosting basics.',
-        topics: ['Microsoft Azure', 'IaaS / PaaS', 'Deployment Basics'],
-        accent: 'cyan',
-        iconKey: 'cloud',
-      },
       {
         id: 'ai',
         name: 'Artificial Intelligence',
@@ -210,7 +221,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Foundations of search spaces, problem formulation, rational agents, and reasoning.',
         topics: ['Search Heuristics', 'Intelligent Agents', 'State Space Graphs'],
-        accent: 'violet',
+        accent: 'primary',
         iconKey: 'ai',
       },
       {
@@ -220,8 +231,62 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         description:
           'Core learning paradigms, dataset preparation, regression, and basic classification.',
         topics: ['Supervised Basics', 'Data Cleaning', 'Linear Models'],
-        accent: 'cyan',
+        accent: 'secondary',
         iconKey: 'ml',
+      },
+    ],
+  },
+  {
+    id: 'cloud',
+    title: 'Cloud Computing',
+    accentColor: 'secondary',
+    skills: [
+      {
+        id: 'cloud-azure',
+        name: 'Cloud & Microsoft Azure',
+        stage: 'Foundations',
+        description:
+          'Cloud architecture fundamentals, Microsoft Azure concepts, service models, and web hosting.',
+        topics: ['Microsoft Azure', 'IaaS / PaaS', 'Deployment Basics'],
+        accent: 'secondary',
+        iconKey: 'cloud',
+      },
+    ],
+  },
+  {
+    id: 'tools',
+    title: 'Developer Tools',
+    accentColor: 'primary',
+    skills: [
+      {
+        id: 'git-github',
+        name: 'Git & GitHub',
+        stage: 'Daily Workflow',
+        description:
+          'Version control, branching basics, repository management, and collaborative code hosting.',
+        topics: ['Commits & Branches', 'GitHub Repos', 'Deployment Sync'],
+        accent: 'primary',
+        iconKey: 'git',
+      },
+      {
+        id: 'vscode',
+        name: 'VS Code',
+        stage: 'Editor',
+        description:
+          'Primary coding environment for C, Python, and full-stack web development.',
+        topics: ['Debugging', 'Extensions', 'Integrated Terminal'],
+        accent: 'secondary',
+        iconKey: 'vscode',
+      },
+      {
+        id: 'cli-gcc',
+        name: 'Terminal & GCC',
+        stage: 'Environment',
+        description:
+          'Command-line compilation, shell navigation, and disciplined C warning checks.',
+        topics: ['GCC (-Wall)', 'Shell Basics', 'Build Scripts'],
+        accent: 'primary',
+        iconKey: 'cli',
       },
     ],
   },
@@ -244,9 +309,13 @@ export const PROJECTS: ProjectItem[] = [
     categoryLabel: 'Python',
     status: 'Learning Build',
     summary:
-      'Interactive console and GUI-based mini games built to practice control flow, object-oriented programming, and clean state management.',
+      'Interactive console mini games built to practice control flow, object-oriented programming, and clean state management.',
     details:
       'A collection of foundational Python mini-games (number guessing with adaptive hints, rock-paper-scissors tournament tracker, and turn-based logic puzzles) structured with modular functions, input validation, and score persistence.',
+    challenge:
+      'Preventing invalid user inputs and tangled game-loop state from crashing or resetting rounds unexpectedly.',
+    solution:
+      'Separated game state into clean GameSession classes with strict input parsing and deterministic turn transitions.',
     concepts: ['Python', 'CLI', 'OOP', 'State Management'],
     highlights: [
       'Modular game loop separation with clean input validation and edge-case handling',
@@ -283,6 +352,10 @@ export const PROJECTS: ProjectItem[] = [
       'Performance-focused console games exploring pointers, arrays, structured programming, and procedural logic in standard C.',
     details:
       'Built during first-year procedural programming labs to strengthen understanding of memory layout, 2D board arrays, pointer arithmetic, and deterministic win-condition checks in standard C.',
+    challenge:
+      'Managing 2D board indexing, pointer updates, and buffer safety cleanly in standard C without memory leaks.',
+    solution:
+      'Used fixed-bounds array traversal, const-qualified display helpers, and strict compiler checks (-Wall -Wextra).',
     concepts: ['C', 'Pointers', 'Arrays', 'Procedural Logic'],
     highlights: [
       '2D array game board rendering in terminal with zero external dependencies',
@@ -314,6 +387,10 @@ void render_board(const char board[3][3]) {
       'Conceptual architecture exploring multi-step reasoning, tool selection, and goal-directed task orchestration for intelligent AI workflows.',
     details:
       'An early design and Python prototyping workspace aligned with my goal of becoming an Agentic AI Engineer—studying how planning, memory, and tool-calling loops let models break complex user goals into verifiable steps.',
+    challenge:
+      'Keeping multi-step AI tasks predictable and verifiable rather than letting a model drift across open-ended prompts.',
+    solution:
+      'Designed explicit typed AgentStep interfaces separating goal decomposition, tool execution, and constraint checks.',
     concepts: ['Agentic AI', 'Python', 'Task Planning', 'AI Workflows'],
     highlights: [
       'Separates planner, tool executor, and verification steps into clear Python interfaces',
@@ -342,20 +419,24 @@ def plan_goal(goal: str) -> list[AgentStep]:
   },
   {
     id: 'algorithm-visualizer',
-    title: 'Smart Algorithm Visualizer',
-    subtitle: 'Utility & Learning Tool',
+    title: 'Smart Algorithm Visualizer & Portfolio Web App',
+    subtitle: 'Web & Learning Tool',
     category: 'utility',
     categoryLabel: 'Web & Utilities',
     status: 'Interactive Demo',
     summary:
-      'Visual walkthrough tool to observe sorting algorithms step by step with real-time comparison and swap highlights.',
+      'Interactive sorting visualizer and modular React + TypeScript web engineering showcase with real-time step inspection.',
     details:
-      'Designed to make foundational Data Structures & Algorithms intuitive for students. Watch Bubble Sort and Selection Sort compare elements, swap values, and lock sorted indices in real time.',
-    concepts: ['JavaScript', 'HTML5', 'CSS3', 'Algorithms'],
+      'Designed to make foundational Data Structures & Algorithms intuitive for students. Watch Bubble Sort compare elements, swap values, and lock sorted indices directly in this portfolio, backed by clean TypeScript state and responsive design.',
+    challenge:
+      'Synchronizing asynchronous animation delays with user interrupts (shuffle, reset, or modal close) without stale state updates.',
+    solution:
+      'Used cancellation refs and step-by-step state snapshots so animations pause, reset, or randomize cleanly at any moment.',
+    concepts: ['TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
     highlights: [
-      'Interactive step-by-step visualization built directly into this portfolio modal',
+      'Interactive step-by-step visualization built directly into the project details modal',
       'Highlights active comparison pairs and sorted elements clearly',
-      'Supports array randomization and algorithm switching on the fly',
+      'Supports array randomization and immediate reset without race conditions',
     ],
     codeFilename: 'bubble_sort.js',
     codeLanguage: 'JavaScript',
@@ -371,8 +452,8 @@ def plan_goal(goal: str) -> list[AgentStep]:
   }
   yield { items, comparing: [] };
 }`,
-    repoUrl: '',
-    liveUrl: '',
+    repoUrl: 'https://github.com/anantjain2145/Portfolio-anant',
+    liveUrl: 'https://portfolio-anant-m64i.vercel.app/',
     hasInteractiveVisualizer: true,
     visualTheme: 'visualizer',
   },
@@ -381,76 +462,157 @@ def plan_goal(goal: str) -> list[AgentStep]:
 export interface JourneyStage {
   id: string;
   phase: string;
-  /** Editable placeholder date until exact dates are finalized */
   timeframe: string;
   title: string;
   description: string;
   technologies: string[];
   iconKey: 'terminal' | 'code' | 'globe' | 'cloud' | 'brain' | 'rocket';
-  accent: 'violet' | 'cyan';
+  accent: 'primary' | 'secondary';
 }
 
 export const LEARNING_JOURNEY: JourneyStage[] = [
   {
     id: 'foundation',
     phase: 'Stage 01',
-    timeframe: 'Phase 01 · Editable Date',
-    title: 'Foundation',
-    description: 'Started learning programming fundamentals using C.',
+    timeframe: 'Foundations',
+    title: 'Programming Fundamentals in C',
+    description:
+      'Started building core problem-solving discipline with procedural programming, pointers, and memory basics in C.',
     technologies: ['C Language', 'Control Flow', 'Pointers', 'Problem Logic'],
     iconKey: 'terminal',
-    accent: 'violet',
+    accent: 'primary',
   },
   {
     id: 'programming',
     phase: 'Stage 02',
-    timeframe: 'Phase 02 · Editable Date',
-    title: 'Programming',
-    description: 'Explored Python and developed small programming projects and games.',
+    timeframe: 'Applied Logic',
+    title: 'Python & Small Game Development',
+    description:
+      'Explored Python to build interactive console mini-games, practice OOP concepts, and automate everyday logic tasks.',
     technologies: ['Python', 'OOP Basics', 'CLI Games', 'Scripting'],
     iconKey: 'code',
-    accent: 'cyan',
+    accent: 'secondary',
   },
   {
     id: 'web-development',
     phase: 'Stage 03',
-    timeframe: 'Phase 03 · Editable Date',
-    title: 'Web Development',
-    description: 'Started learning HTML, CSS, and JavaScript.',
-    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+    timeframe: 'Frontend Craft',
+    title: 'Web Development Foundations',
+    description:
+      'Learned semantic HTML5, responsive CSS3 layouts, and interactive JavaScript to ship ideas directly in the browser.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI'],
     iconKey: 'globe',
-    accent: 'violet',
+    accent: 'primary',
   },
   {
     id: 'cloud-computing',
     phase: 'Stage 04',
-    timeframe: 'Phase 04 · Editable Date',
-    title: 'Cloud Computing',
-    description: 'Explored cloud computing and Microsoft Azure fundamentals.',
+    timeframe: 'Infrastructure',
+    title: 'Cloud Computing & Microsoft Azure',
+    description:
+      'Explored cloud service models, virtualization fundamentals, and Microsoft Azure core concepts for modern deployment.',
     technologies: ['Cloud Computing', 'Microsoft Azure', 'IaaS / PaaS'],
     iconKey: 'cloud',
-    accent: 'cyan',
+    accent: 'secondary',
   },
   {
     id: 'artificial-intelligence',
     phase: 'Stage 05',
-    timeframe: 'Current Focus · 2026 – Present',
-    title: 'Artificial Intelligence',
-    description: 'Exploring AI, machine learning, and agentic AI concepts.',
+    timeframe: 'Current Focus',
+    title: 'Artificial Intelligence & Machine Learning',
+    description:
+      'Pursuing B.Tech CSE-AIML at GLA University while studying search algorithms, ML basics, and Agentic AI patterns.',
     technologies: ['Artificial Intelligence', 'Machine Learning', 'Agentic AI'],
     iconKey: 'brain',
-    accent: 'violet',
+    accent: 'primary',
   },
   {
     id: 'future-goals',
     phase: 'Stage 06',
-    timeframe: 'Long-Term Goal',
-    title: 'Future Goals',
+    timeframe: 'North Star',
+    title: 'Future Goal: Agentic AI Engineer',
     description:
-      'Aspiring to become an Agentic AI Engineer and build AI systems that solve real-world problems.',
+      'Aspiring to architect autonomous, tool-using AI systems that reliably solve meaningful real-world problems.',
     technologies: ['Agentic AI Systems', 'Autonomous Workflows', 'Real-World AI'],
     iconKey: 'rocket',
-    accent: 'cyan',
+    accent: 'secondary',
+  },
+];
+
+/**
+ * Easy-to-update "Currently Exploring" (Now) section data.
+ * Edit items here anytime to keep your current learning focus up to date.
+ */
+export const NOW_EXPLORING: NowItem[] = [
+  {
+    id: 'now-agentic',
+    area: 'AI Systems',
+    title: 'Agentic AI & Tool Orchestration',
+    description:
+      'Studying how multi-step planning loops, structured tool calls, and Gemini APIs turn language models into reliable problem solvers.',
+    focusTags: ['Agentic AI', 'Gemini API', 'Python'],
+  },
+  {
+    id: 'now-dsa',
+    area: 'Core CS',
+    title: 'Data Structures & Algorithms',
+    description:
+      'Strengthening foundational problem-solving in C and Python through sorting visualizations, arrays, and pointer exercises.',
+    focusTags: ['C Language', 'Algorithms', 'Problem Solving'],
+  },
+  {
+    id: 'now-cloud-web',
+    area: 'Engineering',
+    title: 'Modern Web & Cloud Fundamentals',
+    description:
+      'Refining full-stack TypeScript web experiences while deepening understanding of Microsoft Azure and cloud deployment patterns.',
+    focusTags: ['TypeScript', 'React', 'Microsoft Azure'],
+  },
+];
+
+/**
+ * Grounded personality & co-curricular profile — strictly reflects genuine interests without invented awards.
+ */
+export const PERSONALITY_HIGHLIGHTS: PersonalityItem[] = [
+  {
+    id: 'badminton',
+    title: 'Badminton & Focus',
+    category: 'Athletics & Balance',
+    description:
+      'Playing badminton helps sharpen quick decision-making, consistency, and mental stamina outside of long coding sessions.',
+    iconKey: 'badminton',
+  },
+  {
+    id: 'leadership',
+    title: 'Leadership & Organizing Events',
+    category: 'Teamwork & Initiative',
+    description:
+      'Keen on coordinating student activities, helping organize collaborative sessions, and bringing peers together around shared goals.',
+    iconKey: 'leadership',
+  },
+  {
+    id: 'workshops',
+    title: 'Workshops & Hands-On Learning',
+    category: 'Continuous Growth',
+    description:
+      'Actively enjoys technical workshops, peer learning labs, and practical sessions that bridge classroom theory with real tools.',
+    iconKey: 'workshop',
+  },
+  {
+    id: 'curiosity',
+    title: 'Curiosity About AI & Tech',
+    category: 'Builder Mindset',
+    description:
+      'Driven by a habit of asking how systems work under the hood—from C memory pointers to autonomous AI workflows.',
+    iconKey: 'curiosity',
+  },
+  {
+    id: 'academic',
+    title: 'Academic Journey @ GLA',
+    category: 'B.Tech CSE-AIML',
+    description:
+      'Building a disciplined first-year engineering foundation at GLA University, Mathura with focus on AI, ML, and software craft.',
+    iconKey: 'academic',
   },
 ];
 
@@ -473,4 +635,3 @@ export const ASSISTANT_SUGGESTED_QUESTIONS = [
   'What are his career goals?',
   'How can I contact him?',
 ];
-

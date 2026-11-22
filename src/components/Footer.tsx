@@ -1,42 +1,62 @@
+import { Command } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
 import type { SectionId } from './Navbar';
 
 interface FooterProps {
   onNavigate: (section: SectionId) => void;
+  onOpenCommandPalette: () => void;
 }
 
-const FOOTER_SECTIONS: SectionId[] = [
-  'home',
-  'about',
-  'journey',
-  'skills',
-  'projects',
-  'terminal',
-  'contact',
+const FOOTER_SECTIONS: { id: SectionId; label: string }[] = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'now', label: 'Exploring' },
+  { id: 'journey', label: 'Journey' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'github', label: 'GitHub' },
+  { id: 'terminal', label: 'Terminal' },
+  { id: 'contact', label: 'Contact' },
 ];
 
-export function Footer({ onNavigate }: FooterProps) {
+export function Footer({ onNavigate, onOpenCommandPalette }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.07] bg-[#0b0e15]/80">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#938ea1]">
-        <p className="text-center sm:text-left">
-          &copy; {year} {PROFILE.name} · B.Tech CSE-AIML, {PROFILE.shortUniversity}
-        </p>
+    <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]/80 theme-surface">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+          <p>
+            &copy; {year} {PROFILE.name} · B.Tech CSE-AIML, {PROFILE.shortUniversity}
+          </p>
+          <span aria-hidden="true" className="hidden sm:inline">
+            ·
+          </span>
+          <button
+            type="button"
+            onClick={onOpenCommandPalette}
+            className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--accent)] hover:underline cursor-pointer"
+          >
+            <Command className="w-3 h-3" aria-hidden="true" />
+            <span>Ctrl+K Palette</span>
+          </button>
+        </div>
 
-        <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-5">
+        <nav
+          aria-label="Footer navigation"
+          className="flex flex-wrap items-center justify-center gap-4"
+        >
           {FOOTER_SECTIONS.map((section) => (
             <a
-              key={section}
-              href={`#${section}`}
+              key={section.id}
+              href={`#${section.id}`}
               onClick={(e) => {
                 e.preventDefault();
-                onNavigate(section);
+                onNavigate(section.id);
               }}
-              className="capitalize hover:text-[#e0e2ed] transition-colors"
+              className="hover:text-[var(--text-primary)] transition-colors"
             >
-              {section}
+              {section.label}
             </a>
           ))}
         </nav>

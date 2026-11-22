@@ -20,9 +20,9 @@ export function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="Back to top"
-      className="fixed bottom-6 right-5 sm:right-8 z-40 w-11 h-11 rounded-full bg-[#272a32]/90 hover:bg-[#32353d] border border-[#947dff]/45 text-[#e0e2ed] shadow-lg backdrop-blur-md flex items-center justify-center transition-all hover:-translate-y-0.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff]"
+      className="fixed bottom-6 right-5 sm:right-8 z-40 w-11 h-11 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--bg-secondary)] border border-[var(--border-strong)] text-[var(--text-primary)] shadow-[var(--shadow-card)] backdrop-blur-md flex items-center justify-center transition-all hover:-translate-y-0.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
-      <ArrowUp className="w-4 h-4 text-[#a2e7ff]" aria-hidden="true" />
+      <ArrowUp className="w-4 h-4 text-[var(--accent)]" aria-hidden="true" />
     </button>
   );
 }

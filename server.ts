@@ -10,6 +10,7 @@ import {
   isGeminiConfigured,
   validateChatPayload,
 } from './server/portfolioKnowledge.ts';
+import { fetchGitHubPortfolioData } from './server/githubService.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,11 @@ async function startServer() {
       ok: true,
       geminiConfigured: isGeminiConfigured(),
     });
+  });
+
+  app.get('/api/github', async (req: Request, res: Response) => {
+    const payload = await fetchGitHubPortfolioData(req.query.username);
+    res.json(payload);
   });
 
   app.post('/api/chat', async (req: Request, res: Response) => {

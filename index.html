@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" data-theme="space" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,15 +15,26 @@
     />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#10131b" />
+    <meta name="theme-color" content="#050816" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('anant_portfolio_theme');
+          var valid = ['space', 'professional', 'forest', 'ocean'];
+          if (saved && valid.indexOf(saved) !== -1) {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="bg-[#10131b] text-[#e0e2ed] antialiased selection:bg-[#947dff] selection:text-[#1c0062]">
+  <body class="antialiased selection:bg-[var(--accent)] selection:text-[var(--accent-contrast)]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

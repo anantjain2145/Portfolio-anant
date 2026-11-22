@@ -19,42 +19,44 @@ export function JourneySection() {
     <section
       id="journey"
       aria-labelledby="journey-heading"
-      className="py-16 sm:py-20 border-t border-white/[0.08]"
+      className="py-16 sm:py-20 border-t border-[var(--border-subtle)]"
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
         <div className="space-y-2">
-          <p className="font-mono text-xs uppercase tracking-widest text-[#cabeff]">
+          <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
             Growth Trajectory
           </p>
           <h2
             id="journey-heading"
-            className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#e0e2ed]"
+            className="text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--text-primary)]"
           >
-            Interactive Learning Journey
+            Learning Journey Timeline
           </h2>
-          <p className="text-sm sm:text-base text-[#c9c4d8] max-w-2xl">
-            From foundational C programming to exploring Cloud Computing, Machine Learning, and
-            Agentic AI systems.
+          <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl">
+            Step-by-step progression from foundational C programming to Cloud Computing, Machine
+            Learning, and Agentic AI systems.
           </p>
         </div>
 
-        <p className="font-mono text-xs text-[#a2e7ff] whitespace-nowrap shrink-0">
-          {LEARNING_JOURNEY.length} milestones
+        <p className="font-mono text-xs tabular-nums text-[var(--accent-secondary)] whitespace-nowrap shrink-0">
+          {LEARNING_JOURNEY.length} stages
         </p>
       </div>
 
-      {/* Vertical Cosmic Timeline */}
+      {/* Vertical Theme-Adaptive Timeline */}
       <div className="relative pl-6 sm:pl-10 space-y-6">
-        {/* Glowing Orbital Rail */}
         <div
           aria-hidden="true"
-          className="absolute left-[11px] sm:left-[19px] top-3 bottom-3 w-[2px] bg-gradient-to-b from-[#947dff] via-[#cabeff]/60 to-[#00d2fd]"
+          style={{
+            backgroundImage: 'linear-gradient(to bottom, var(--accent), var(--accent-secondary))',
+          }}
+          className="absolute left-[11px] sm:left-[19px] top-3 bottom-3 w-[2px] opacity-65"
         />
 
         {LEARNING_JOURNEY.map((stage: JourneyStage, index: number) => {
           const Icon = STAGE_ICONS[stage.iconKey];
           const isSelected = activeStageId === stage.id;
-          const isCyan = stage.accent === 'cyan';
+          const isSecondary = stage.accent === 'secondary';
 
           return (
             <motion.div
@@ -63,7 +65,7 @@ export function JourneySection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{
-                duration: 0.38,
+                duration: 0.35,
                 delay: index * 0.05,
                 ease: [0.16, 1, 0.3, 1],
               }}
@@ -74,10 +76,10 @@ export function JourneySection() {
                 aria-hidden="true"
                 className={`absolute -left-6 sm:-left-10 top-6 w-6 h-6 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border transition-all duration-200 ${
                   isSelected
-                    ? isCyan
-                      ? 'bg-[#0b0e15] border-[#00d2fd] text-[#a2e7ff] shadow-[0_0_18px_rgba(0,210,253,0.45)] scale-105'
-                      : 'bg-[#0b0e15] border-[#947dff] text-[#cabeff] shadow-[0_0_18px_rgba(148,125,255,0.45)] scale-105'
-                    : 'bg-[#181b23] border-white/15 text-[#c9c4d8]'
+                    ? isSecondary
+                      ? 'bg-[var(--bg-primary)] border-[var(--accent-secondary)] text-[var(--accent-secondary)] shadow-[var(--shadow-glow)] scale-105'
+                      : 'bg-[var(--bg-primary)] border-[var(--accent)] text-[var(--accent)] shadow-[var(--shadow-glow)] scale-105'
+                    : 'bg-[var(--bg-secondary)] border-[var(--border-subtle)] text-[var(--text-muted)]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -89,37 +91,37 @@ export function JourneySection() {
                 onClick={() => setActiveStageId(stage.id)}
                 onMouseEnter={() => setActiveStageId(stage.id)}
                 aria-expanded={isSelected}
-                className={`w-full text-left rounded-2xl p-5 sm:p-6 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff] ${
+                className={`w-full text-left rounded-2xl p-5 sm:p-6 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] theme-surface ${
                   isSelected
-                    ? 'bg-[#1d2027]/95 border-[#947dff]/55 shadow-[0_12px_32px_-10px_rgba(124,92,252,0.28)] -translate-y-0.5'
-                    : 'bg-[#181b23]/85 border-white/[0.08] hover:border-white/20 hover:-translate-y-0.5'
+                    ? 'bg-[var(--bg-elevated)] border-[var(--border-strong)] shadow-[var(--shadow-card)] -translate-y-0.5'
+                    : 'bg-[var(--bg-card)] border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:-translate-y-0.5'
                 }`}
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <div className="flex items-center gap-2.5">
-                    <span
-                      className={`font-mono text-xs font-semibold ${
-                        isCyan ? 'text-[#a2e7ff]' : 'text-[#cabeff]'
-                      }`}
-                    >
-                      {stage.phase}
-                    </span>
-                    <span aria-hidden="true" className="text-[#484555]">
-                      ·
-                    </span>
-                    <span className="font-mono text-xs text-[#938ea1]">{stage.timeframe}</span>
-                  </div>
+                <div className="flex flex-wrap items-center gap-2.5 mb-2">
+                  <span
+                    className={`font-mono text-xs font-semibold ${
+                      isSecondary ? 'text-[var(--accent-secondary)]' : 'text-[var(--accent)]'
+                    }`}
+                  >
+                    {stage.phase}
+                  </span>
+                  <span aria-hidden="true" className="text-[var(--text-muted)]">
+                    ·
+                  </span>
+                  <span className="font-mono text-xs text-[var(--text-muted)]">
+                    {stage.timeframe}
+                  </span>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-semibold text-[#e0e2ed] mb-1.5">
+                <h3 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] mb-1.5">
                   {stage.title}
                 </h3>
 
-                <p className="text-sm text-[#c9c4d8] leading-relaxed mb-3">
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-3">
                   {stage.description}
                 </p>
 
-                <p className="font-mono text-xs text-[#938ea1] pt-2.5 border-t border-white/[0.06]">
+                <p className="font-mono text-xs text-[var(--text-muted)] pt-2.5 border-t border-[var(--border-subtle)]">
                   {stage.technologies.join(' · ')}
                 </p>
               </button>

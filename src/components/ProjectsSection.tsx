@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Code2, Eye, Play, Terminal } from 'lucide-react';
+import { Code2, ExternalLink, Eye, Github, Play, Terminal } from 'lucide-react';
 import {
   PROJECT_FILTERS,
   PROJECTS,
@@ -29,31 +29,31 @@ export function ProjectsSection() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="py-16 sm:py-20 border-t border-white/[0.06]"
+      className="py-16 sm:py-20 border-t border-[var(--border-subtle)]"
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div className="space-y-2">
-          <p className="font-mono text-xs uppercase tracking-widest text-[#cabeff]">
-            Featured Builds &amp; Learning Labs
+          <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
+            Featured Builds &amp; Case Studies
           </p>
           <h2
             id="projects-heading"
-            className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#e0e2ed]"
+            className="text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--text-primary)]"
           >
             Projects &amp; Prototypes
           </h2>
-          <p className="text-sm sm:text-base text-[#c9c4d8] max-w-2xl">
-            Hands-on programming builds in Python, C, and web utilities alongside conceptual
-            Agentic AI exploration.
+          <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl">
+            Hands-on programming builds in Python, C, and TypeScript alongside conceptual Agentic
+            AI exploration—each documenting its core challenge and solution.
           </p>
         </div>
 
-        <p className="font-mono text-xs text-[#a2e7ff] whitespace-nowrap shrink-0">
+        <p className="font-mono text-xs tabular-nums text-[var(--accent-secondary)] whitespace-nowrap shrink-0">
           {filteredProjects.length} of {PROJECTS.length} shown
         </p>
       </div>
 
-      {/* Interactive Category Filter Bar */}
+      {/* Category Filter Bar */}
       <div
         role="group"
         aria-label="Filter projects by technology"
@@ -67,10 +67,10 @@ export function ProjectsSection() {
               type="button"
               onClick={() => setSelectedFilter(filter.id)}
               aria-pressed={isActive}
-              className={`px-4 py-2 rounded-lg text-xs font-mono whitespace-nowrap shrink-0 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff] ${
+              className={`px-4 py-2 rounded-lg text-xs font-mono whitespace-nowrap shrink-0 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                 isActive
-                  ? 'bg-[#947dff] text-[#1c0062] font-semibold shadow-[0_0_16px_rgba(148,125,255,0.35)]'
-                  : 'bg-[#1d2027] text-[#c9c4d8] border border-white/[0.07] hover:text-[#e0e2ed] hover:bg-[#272a32]'
+                  ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-semibold shadow-[var(--shadow-glow)]'
+                  : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]'
               }`}
             >
               {filter.label}
@@ -93,85 +93,110 @@ export function ProjectsSection() {
                 delay: index * 0.05,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group rounded-2xl bg-[#181b23] border border-white/[0.08] hover:border-[#947dff]/45 overflow-hidden flex flex-col justify-between transition-all duration-200 shadow-md"
+              className="group rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] overflow-hidden flex flex-col justify-between transition-all duration-200 shadow-[var(--shadow-card)] theme-surface"
             >
               <div>
-                {/* Visual Preview Canvas */}
-                <div className="relative h-44 bg-[#0b0e15] overflow-hidden border-b border-white/[0.06]">
+                {/* Visual Preview Banner */}
+                <div className="relative h-44 bg-[var(--bg-code)] overflow-hidden border-b border-[var(--border-subtle)]">
                   <ProjectVisualBanner theme={project.visualTheme} />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-[#181b23] via-transparent to-transparent opacity-80"
-                  />
                 </div>
 
                 {/* Card Body */}
                 <div className="p-5 sm:p-6 space-y-3">
-                  <p className="font-mono text-xs text-[#a2e7ff]">
+                  <p className="font-mono text-xs text-[var(--accent)]">
                     {project.subtitle} · {project.status}
                   </p>
 
-                  <h3 className="text-lg sm:text-xl font-semibold text-[#e0e2ed] leading-snug">
+                  <h3 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] leading-snug">
                     {project.title}
                   </h3>
 
-                  <p className="text-sm text-[#c9c4d8] leading-relaxed">
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                     {project.summary}
                   </p>
 
-                  <p className="font-mono text-xs text-[#938ea1] pt-1">
+                  {/* Challenge & Solution Snapshot */}
+                  <div className="rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)] p-3.5 space-y-2 text-xs">
+                    <p className="text-[var(--text-secondary)] leading-relaxed">
+                      <span className="font-mono font-semibold text-[var(--accent)]">
+                        Challenge:
+                      </span>{' '}
+                      {project.challenge}
+                    </p>
+                    <p className="text-[var(--text-secondary)] leading-relaxed">
+                      <span className="font-mono font-semibold text-[var(--accent-secondary)]">
+                        Solution:
+                      </span>{' '}
+                      {project.solution}
+                    </p>
+                  </div>
+
+                  <p className="font-mono text-xs text-[var(--text-muted)] pt-1">
                     {project.concepts.join(' · ')}
                   </p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-white/[0.06] flex flex-wrap items-center gap-2.5">
+              <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-[var(--border-subtle)] flex flex-wrap items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => openModal(project, 'code')}
-                  className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-[#272a32] hover:bg-[#32353d] border border-white/[0.07] text-xs font-medium text-[#e0e2ed] transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff]"
+                  onClick={() => openModal(project, 'overview')}
+                  className="flex-1 min-w-[115px] inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-[var(--accent)] text-[var(--accent-contrast)] text-xs font-semibold hover:brightness-110 transition-all cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                 >
-                  <Code2 className="w-3.5 h-3.5 text-[#a2e7ff]" aria-hidden="true" />
-                  <span>View Code</span>
+                  <Eye className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Case Study</span>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() =>
-                    openModal(project, project.hasInteractiveVisualizer ? 'demo' : 'overview')
-                  }
-                  className="flex-1 min-w-[130px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-[#947dff]/20 hover:bg-[#947dff]/30 border border-[#947dff]/40 text-xs font-medium text-[#e6deff] transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cabeff]"
+                  onClick={() => openModal(project, 'code')}
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-[var(--bg-secondary)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-medium text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                 >
-                  {project.hasInteractiveVisualizer ? (
-                    <>
-                      <Play className="w-3.5 h-3.5 text-[#a2e7ff]" aria-hidden="true" />
-                      <span>Try Live Demo</span>
-                    </>
-                  ) : (
-                    <>
-                      <Eye className="w-3.5 h-3.5 text-[#cabeff]" aria-hidden="true" />
-                      <span>Explore Details</span>
-                    </>
-                  )}
+                  <Code2 className="w-3.5 h-3.5 text-[var(--accent)]" aria-hidden="true" />
+                  <span>Code</span>
                 </button>
+
+                {project.hasInteractiveVisualizer && (
+                  <button
+                    type="button"
+                    onClick={() => openModal(project, 'demo')}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-[var(--accent-soft)] border border-[var(--border-strong)] text-xs font-medium text-[var(--text-primary)] hover:brightness-110 transition-all cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                  >
+                    <Play className="w-3.5 h-3.5 text-[var(--accent)]" aria-hidden="true" />
+                    <span>Live Demo</span>
+                  </button>
+                )}
+
+                {project.repoUrl && (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`GitHub repository for ${project.title}`}
+                    className="inline-flex items-center justify-center gap-1 px-3 py-2.5 rounded-lg bg-[var(--bg-secondary)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors whitespace-nowrap"
+                  >
+                    <Github className="w-3.5 h-3.5" aria-hidden="true" />
+                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                  </a>
+                )}
               </div>
             </motion.article>
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl bg-[#181b23] border border-white/[0.07] p-10 text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-[#272a32] flex items-center justify-center mx-auto text-[#c9c4d8]">
+        <div className="rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-10 text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-[var(--bg-elevated)] flex items-center justify-center mx-auto text-[var(--text-secondary)]">
             <Terminal className="w-5 h-5" aria-hidden="true" />
           </div>
-          <h3 className="text-base font-semibold text-[#e0e2ed]">No Projects Found</h3>
-          <p className="text-sm text-[#938ea1] max-w-sm mx-auto">
+          <h3 className="text-base font-semibold text-[var(--text-primary)]">No Projects Found</h3>
+          <p className="text-sm text-[var(--text-muted)] max-w-sm mx-auto">
             No builds match the selected filter. Reset to view all projects.
           </p>
           <button
             type="button"
             onClick={() => setSelectedFilter('all')}
-            className="px-4 py-2 rounded-lg bg-[#947dff] text-[#1c0062] text-xs font-semibold cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-[var(--accent)] text-[var(--accent-contrast)] text-xs font-semibold cursor-pointer"
           >
             Show All Projects
           </button>
