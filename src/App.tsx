@@ -11,6 +11,7 @@ import { BackToTop } from './components/BackToTop';
 import { ResumeModal } from './components/ResumeModal';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { IntroOverlay } from './components/IntroOverlay';
+import { SpaceBackdrop } from './components/SpaceBackdrop';
 
 const SECTION_IDS: SectionId[] = ['home', 'about', 'skills', 'projects', 'contact'];
 
@@ -61,7 +62,9 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-[#10131b] text-[#e0e2ed]">
+      <div className="relative min-h-screen flex flex-col bg-[#0b0e15] text-[#e0e2ed]">
+        <SpaceBackdrop />
+
         <AnimatePresence>
           {showIntro && <IntroOverlay onComplete={handleIntroComplete} />}
         </AnimatePresence>
@@ -80,7 +83,10 @@ export default function App() {
           onOpenResume={() => setResumeModalOpen(true)}
         />
 
-        <main id="main-content" className="flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8">
+        <main
+          id="main-content"
+          className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8"
+        >
           <HeroSection
             onNavigate={handleNavigate}
             onOpenResume={() => setResumeModalOpen(true)}
@@ -91,7 +97,9 @@ export default function App() {
           <ContactSection onOpenResume={() => setResumeModalOpen(true)} />
         </main>
 
-        <Footer onNavigate={handleNavigate} />
+        <div className="relative z-10">
+          <Footer onNavigate={handleNavigate} />
+        </div>
         <BackToTop />
 
         <ResumeModal
