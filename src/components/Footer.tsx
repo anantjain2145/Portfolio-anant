@@ -24,7 +24,7 @@ export function Footer({ onNavigate, onOpenCommandPalette }: FooterProps) {
 
   return (
     <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]/80 theme-surface">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+      <div className="site-container py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
           <p>
             &copy; {year} {PROFILE.name} · B.Tech CSE-AIML, {PROFILE.shortUniversity}

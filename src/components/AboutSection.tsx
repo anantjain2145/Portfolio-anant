@@ -195,7 +195,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-4 flex"
+          className="lg:col-span-4 xl:col-span-3 flex"
         >
           <div className="w-full max-w-sm mx-auto lg:max-w-none theme-card border border-[var(--border-subtle)] overflow-hidden shadow-[var(--shadow-card)] flex flex-col theme-surface">
             <div className="relative aspect-[4/5] w-full bg-[var(--bg-secondary)] overflow-hidden flex-1">
@@ -251,7 +251,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.38, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-8 flex flex-col gap-6"
+          className="lg:col-span-8 xl:col-span-9 flex flex-col gap-6"
         >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {JOURNEY_STEPS.map((item) => {

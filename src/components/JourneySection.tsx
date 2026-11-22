@@ -209,17 +209,21 @@ export function JourneySection() {
                   )}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] mb-1.5">
-                  {stage.title}
-                </h3>
+                <div className="lg:flex lg:items-start lg:justify-between lg:gap-8">
+                  <div className="max-w-2xl">
+                    <h3 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)] mb-1.5">
+                      {stage.title}
+                    </h3>
 
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-3">
-                  {stage.description}
-                </p>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-3 lg:mb-0">
+                      {stage.description}
+                    </p>
+                  </div>
 
-                <p className="font-mono text-xs text-[var(--text-muted)] pt-2.5 border-t border-[var(--border-subtle)]">
-                  {stage.technologies.join(' · ')}
-                </p>
+                  <p className="font-mono text-xs text-[var(--text-muted)] pt-2.5 lg:pt-1 lg:text-right border-t lg:border-t-0 border-[var(--border-subtle)] lg:max-w-xs shrink-0">
+                    {stage.technologies.join(' · ')}
+                  </p>
+                </div>
               </button>
             </motion.div>
           );

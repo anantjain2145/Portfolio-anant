@@ -81,7 +81,7 @@ export function ProjectsSection() {
 
       {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-8">
           {filteredProjects.map((project, index) => (
             <motion.article
               key={project.id}
@@ -97,7 +97,7 @@ export function ProjectsSection() {
             >
               <div>
                 {/* Visual Preview Banner */}
-                <div className="relative h-44 bg-[var(--bg-code)] overflow-hidden border-b border-[var(--border-subtle)]">
+                <div className="relative h-44 sm:h-48 lg:h-52 bg-[var(--bg-code)] overflow-hidden border-b border-[var(--border-subtle)]">
                   <ProjectVisualBanner theme={project.visualTheme} />
                 </div>
 

@@ -147,7 +147,7 @@ export default function App() {
 
         <main
           id="main-content"
-          className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pb-12"
+          className="relative z-10 flex-1 site-container pb-12"
         >
           <HeroSection onNavigate={handleNavigate} />
           <AboutSection />

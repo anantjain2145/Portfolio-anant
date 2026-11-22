@@ -40,7 +40,7 @@ function HeroThemeVisual({
 
   if (theme === 'professional') {
     return (
-      <div className="relative w-full max-w-[400px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-strong)] p-6 shadow-[var(--shadow-card)] space-y-5 theme-surface">
+      <div className="relative w-full max-w-[460px] xl:max-w-[500px] rounded-xl bg-[var(--bg-card)] border border-[var(--border-strong)] p-6 shadow-[var(--shadow-card)] space-y-5 theme-surface">
         <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--accent)]">
@@ -112,7 +112,7 @@ function HeroThemeVisual({
 
   if (theme === 'forest') {
     return (
-      <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center p-5">
+      <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-square flex items-center justify-center p-5">
         {/* Canopy Growth Rings */}
         <motion.div
           aria-hidden="true"
@@ -215,7 +215,7 @@ function HeroThemeVisual({
 
   if (theme === 'ocean') {
     return (
-      <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center p-5">
+      <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-square flex items-center justify-center p-5">
         {/* Sonar Waves */}
         <motion.div
           aria-hidden="true"
@@ -305,7 +305,7 @@ function HeroThemeVisual({
 
   // SPACE THEME (Default)
   return (
-    <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center p-5">
+    <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-square flex items-center justify-center p-5">
       {/* Outer Orbital Ring */}
       <motion.div
         aria-hidden="true"
@@ -395,7 +395,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       aria-labelledby="hero-heading"
       className="relative pt-14 pb-16 sm:pt-18 sm:pb-24"
     >
-      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
         {/* Left Column: Identity, Headline, CTAs & Interactive Focus Deck */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
@@ -410,7 +410,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
             <h1
               id="hero-heading"
-              className="text-4xl sm:text-5xl lg:text-[58px] font-semibold tracking-tight leading-[1.08] text-balance text-[var(--text-primary)]"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-semibold tracking-tight leading-[1.08] text-balance text-[var(--text-primary)]"
             >
               {PROFILE.name}
             </h1>
@@ -420,7 +420,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               <span>CSE-AIML Student &amp; Aspiring Agentic AI Engineer</span>
             </p>
 
-            <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed max-w-2xl">
               {PROFILE.heroBio}
             </p>
           </div>

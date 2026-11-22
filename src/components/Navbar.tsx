@@ -81,7 +81,7 @@ export function Navbar({ activeSection, onNavigate, onOpenResume }: NavbarProps)
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[var(--bg-header)] backdrop-blur-xl border-b border-[var(--border-subtle)] theme-surface">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="site-container h-16 flex items-center justify-between gap-4">
         {/* Brand Zone */}
         <a
           href="#home"
